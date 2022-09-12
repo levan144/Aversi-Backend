@@ -29,7 +29,7 @@ class BranchController extends Controller
       $items = $items->paginate($per_page);
       $mapped = $items->map(function ($item) use ($locale) {
             $item = collect($item)->map(function ($key, $value) use ($locale) {
-              if(is_array($key) and !in_array($value, ['services','region'])){
+              if(is_array($key) and !in_array($value, ['services','region','working_time'])){
                 if(isset($key[$locale])) {
                   $key = $key[$locale];
                 } else {

@@ -24,6 +24,7 @@ use Spatie\Health\Checks\Checks\ScheduleCheck;
 use Itsmejoshua\Novaspatiepermissions\Novaspatiepermissions;
 use App\Nova\User;
 use App\Nova\Blog;
+
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
    
@@ -96,7 +97,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             new \Bolechen\NovaActivitylog\NovaActivitylog(),
             // new \Outl1ne\NovaSettings\NovaSettings,
             new \Stepanenko3\NovaSettings\NovaSettingsTool(),
-            
             
         ];
     }

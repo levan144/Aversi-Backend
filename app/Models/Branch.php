@@ -13,12 +13,17 @@ class Branch extends Model implements HasMedia
 {
     use HasFactory, HasTranslations, InteractsWithMedia;
 
-    public $translatable = ['title', 'content','description','city','address','gallery'];
+    public $translatable = ['title', 'content','description','city','address','gallery','emergency','note'];
 
     protected $casts = [
         'working_time' => 'array',
-        'service_ids' => 'array'
+        'service_ids' => 'array',
+        'opening_hours' => 'array'
     ];
+
+    protected $hidden = [
+        'service_ids',
+       ];
 
     public function services(){
         return $this->hasMany(Service::class, 'id')->select('id','title','content','icon');
@@ -31,10 +36,6 @@ class Branch extends Model implements HasMedia
     public function images() {
         return $this->hasMany(Media::class, 'model_id')->where('model_type', 'App\Models\Branch');
     }
-
-    protected $hidden = [
-     'service_ids',
-    ];
 
     public function searchType()
     {

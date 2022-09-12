@@ -2,6 +2,12 @@
 
 namespace Outl1ne\MenuBuilder\MenuItemTypes;
 use App\Models\Settings;
+use Laravel\Nova\Fields\Image;
+use Storage;
+use Illuminate\Http\Request;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use AlexAzartsev\Heroicon\Heroicon;
+
 class MenuItemFixedType extends BaseMenuItemType
 {
     public static function getIdentifier(): string
@@ -17,17 +23,29 @@ class MenuItemFixedType extends BaseMenuItemType
     public static function getOptions($locale): array {
     // Example usecase
     return [
-        '/services' => 'სერვისები',
-        '/doctors' => 'ექიმები',
-        '/branches' => 'ფილიალები',
-        '/laboratory' => 'ლაბორატორია',
-        '/news' => 'სიახლეები',
-        '/blog' => 'ბლოგი',
-        '/contact' => 'კონტაქტი',
-        '/promotions' => 'აქციები',
-        '/vacancies' => 'ვაკანსიები',
-        '/partners' => 'პარტნიორები',
+        '/services' => __('Services'),
+        '/doctors' => __('Doctors'),
+        '/branches' => __('Branches'),
+        '/laboratory' => __('Laboratory'),
+        '/news' => __('News'),
+        '/blog' => __('Blog'),
+        '/contact' => __('Contact'),
+        '/promotions' =>__('Promotions'),
+        '/vacancies' => __('Vacancies'),
+        '/partners' => __('Partners'),
     ];
+}
+
+/**
+ * Get the fields displayed by the resource.
+ *
+ * @return array An array of fields.
+ */
+public static function getFields(): array
+{
+    return [ 
+        Heroicon::make('Icon'),
+];
 }
 
     public static function getType(): string

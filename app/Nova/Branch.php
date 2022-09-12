@@ -22,7 +22,7 @@ use Outl1ne\MultiselectField\Multiselect;
 use Storage;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Laravel\Nova\Query\Search\SearchableJson;
-
+use SadekD\NovaOpeningHoursField\NovaOpeningHoursField;
 class Branch extends Resource
 {
     /**
@@ -122,79 +122,22 @@ class Branch extends Resource
     protected function workingHourFields()
     {
         return [
-            JSON::make(__('Working Hours'), 'working_time', [
-                Text::make(__('Description'), 'description'),
-                JSON::make(__('Monday'), 'mon', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
-                JSON::make(__('Tuesday'), 'tue', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
-                JSON::make(__('Wednesday'), 'wed', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
-                JSON::make(__('Thursday'), 'thu', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
-                JSON::make(__('Friday'), 'fri', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
-                JSON::make(__('Saturday'), 'sat', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
-                JSON::make(__('Sunday'), 'sun', [
-                    Select::make(__('Open'), 'open')->options($this->hourList()),
-                    Select::make(__('Close'), 'close')->options($this->hourList()),
-                ]),
+            NovaOpeningHoursField::make(__('Opening Hours'), 'working_time')->hideFromIndex(),
+            NovaTabTranslatable::make([
+                Text::make(__('Emergency'), 'emergency')
+                    ->rules('required_lang:ka'),
+
+                Text::make(__('Note'), 'note')
+                    ->rules('required_lang:ka'),
             ])->hideFromIndex(),
+            // JSON::make(__('Working Hours'), 'working_time', [
+            //     Text::make(__('Description'), 'description'),
+                
+            // ])->hideFromIndex(),
         ];
     }
 
-    /**
-     * Get the hours list for the request.
-     *
-     */
-    public function hourList()
-    {
-        return [
-            null => 'დასვენება',
-            '09:00' =>  '09:00',
-            '09:30' =>  '09:30',
-            '10:00' =>  '10:00',
-            '10:30' =>  '10:30',
-            '11:00' =>  '11:00',
-            '11:30' =>  '11:30',
-            '12:00' =>  '12:00',
-            '12:30' =>  '12:30',
-            '13:00' =>  '13:00',
-            '13:30' =>  '13:30',
-            '14:00' =>  '14:00',
-            '14:30' =>  '14:30',
-            '15:00' =>  '15:00',
-            '15:30' =>  '15:30',
-            '16:00' =>  '16:00',
-            '16:30' =>  '16:30',
-            '17:00' =>  '17:00',
-            '17:30' =>  '17:30',
-            '18:00' =>  '18:00',
-            '18:30' =>  '18:30',
-            '19:00' =>  '19:00',
-            '19:30' =>  '19:30',
-            '20:00' =>  '20:00',
-            '20:30' =>  '20:30',
-            '21:00' =>  '21:00',
-            '21:30' =>  '21:30',
-            '22:00' =>  '22:00',
-            '22:30' =>  '22:30',
-                    ];
-    }
-
+   
     /**
      * Get the cards available for the request.
      *

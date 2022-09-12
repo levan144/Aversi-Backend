@@ -222,4 +222,9 @@ class Settings extends Resource
     {
         return [];
     }
+
+    public function authorizedToDelete(Request $request)
+    {
+        return false;
+    }
 }
