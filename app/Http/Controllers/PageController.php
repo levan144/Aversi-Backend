@@ -7,6 +7,8 @@ use App\Models\Settings;
 use App\Models\Service;
 use App\Models\Blog;
 use App\Models\Branch;
+use App\Models\LaboratoryService;
+
 class PageController extends Controller
 {
     public function aboutUs($locale) {
@@ -70,8 +72,8 @@ class PageController extends Controller
       $title = json_decode(Settings::where('slug', 'laboratory')->first(), true)['title'][$locale] ?? null;
 
       $content = json_decode(Settings::where('slug', 'laboratory')->first(), true)['settings']['content_' . $locale] ?? null;
-
-      $result = array('page_title' => $title, 'content' => $content);
+      $image = json_decode(Settings::where('slug', 'laboratory')->first(), true)['settings']['cover_image'] ?? null;
+      $result = array('page_title' => $title, 'content' => $content, 'cover_image' => $image);
       return response($result, 200);
     }
 
@@ -94,28 +96,55 @@ class PageController extends Controller
         $sorting[] = str_replace("App\Nova\Flexible\Layouts\OrderingLayout", "",$section['layout']);
       }
       
-      //Get service IDs
-      $service_ids = json_decode($data['services']) ?? [];
-      $services = $this->get_services_from_ids($service_ids, $locale);
-
-      $blog_ids = json_decode($data['blogs']) ?? [];
-      $blogs = $this->get_blogs_from_ids($blog_ids, $locale);
-
-      $branch_ids = json_decode($data['branches']) ?? [];
-      $branches = $this->get_branches_from_ids($branch_ids, $locale);
-
       $lab_ids = json_decode($data['laboratory']) ?? [];
-      $labs = $this->get_branches_from_ids($branch_ids, $locale);
+      $labs = $this->get_laboratory_services_from_ids($lab_ids, $locale);
 
-      $result = array('page_title' => $title, 'sections_ordering' => $sorting, 'slides' => $slides,'services' => $services, 'blogs' => $blogs, 'labs' => $labs, 'clinics' => $branches);
+      $result = array('page_title' => $title, 'sections_ordering' => $sorting, 'slides' => $slides, 'labs' => $labs);
       return response($result, 200);
     }
 
-    private function get_services_from_ids($service_ids, $locale){
+    // private function get_services_from_ids($service_ids, $locale){
+    //   $services = [];
+    //     //Get Services by ids
+    //     foreach($service_ids as $service_id){
+    //       $service = Service::find(intval($service_id));
+    //       if($service) {
+    //           $service = $service->toArray();
+    //           if($service['status'] == 1){
+    //             $service['title'] = $service['title'][$locale] ?? null;
+    //             $service['content'] = $service['content'][$locale] ?? null;
+    //             $services[] = $service;
+    //           }
+    //       }
+    //     }
+
+    //     return $services;
+    // }
+
+    // private function get_blogs_from_ids($blog_ids, $locale){
+    //   $blogs = [];
+    //     //Get Blogs by ids
+    //     foreach($blog_ids as $blog_id){
+    //       $blog = Blog::find(intval($blog_id));
+    //       if($blog){
+    //           $blog = $blog->toArray();
+    //           if($blog['status'] == 1){
+    //             $blog['title'] = $blog['title'][$locale] ?? null;
+    //             $blog['content'] = $blog['content'][$locale] ?? null;
+    //             $blog['slug'] = $blog['slug'][$locale] ?? null;
+    //             $blogs[] = $blog;
+    //           }
+    //       }
+    //     }
+
+    //     return $blogs;
+    // }
+
+    private function get_laboratory_services_from_ids($service_ids, $locale = 'ka'){
       $services = [];
         //Get Services by ids
         foreach($service_ids as $service_id){
-          $service = Service::find(intval($service_id));
+          $service = LaboratoryService::find(intval($service_id));
           if($service) {
               $service = $service->toArray();
               if($service['status'] == 1){
@@ -127,45 +156,6 @@ class PageController extends Controller
         }
 
         return $services;
-    }
-
-    private function get_blogs_from_ids($blog_ids, $locale){
-      $blogs = [];
-        //Get Blogs by ids
-        foreach($blog_ids as $blog_id){
-          $blog = Blog::find(intval($blog_id));
-          if($blog){
-              $blog = $blog->toArray();
-              if($blog['status'] == 1){
-                $blog['title'] = $blog['title'][$locale] ?? null;
-                $blog['content'] = $blog['content'][$locale] ?? null;
-                $blog['slug'] = $blog['slug'][$locale] ?? null;
-                $blogs[] = $blog;
-              }
-          }
-        }
-
-        return $blogs;
-    }
-
-    private function get_branches_from_ids($branch_ids, $locale = 'ka'){
-      $branches = [];
-        //Get Branches by ids
-        foreach($branch_ids as $branch_id){
-            $branch = Branch::find(intval($branch_id));
-            if($branch){
-                $branch_region = $branch->region;
-                $branch = $branch->toArray();
-                $branch['region']['id'] = $branch_region->id;
-                $branch['region']['title'] = $branch_region->toArray()['title'][$locale];
-                $branch['title'] = $branch['title'][$locale] ?? null;
-                $branch['description'] = $branch['description'][$locale] ?? null;
-                $branch['address'] = $branch['address'][$locale] ?? null;
-                $branches[] = $branch;
-            }
-        }
-
-        return $branches;
     }
 }
 

@@ -21,6 +21,7 @@ use Outl1ne\MultiselectField\Multiselect;
 use App\Models\Service;
 use App\Models\Blog;
 use App\Models\Branch;
+use App\Models\LaboratoryService;
 class Home extends AbstractType
 {
     public function fields(): array
@@ -166,12 +167,12 @@ class Home extends AbstractType
     protected function modelFields()
     {
         return [
-           Multiselect::make(__('Services'), 'services')->options(
-                         Service::all()->pluck('title', 'id')
-           ),
-           Multiselect::make(__('Blogs'), 'blogs')->options(
-                         Blog::all()->pluck('title', 'id')
-           ),
+        //    Multiselect::make(__('Services'), 'services')->options(
+        //                  Service::all()->pluck('title', 'id')
+        //    ),
+        //    Multiselect::make(__('Blogs'), 'blogs')->options(
+        //                  Blog::all()->pluck('title', 'id')
+        //    ),
 
            Flexible::make(__('Sections'), 'sections')
            ->button(__('Add new'))
@@ -181,12 +182,12 @@ class Home extends AbstractType
            ->addLayout(__('Blogs'), \App\Nova\Flexible\Layouts\OrderingLayoutBlog::class)
            ->addLayout(__('Branches'), \App\Nova\Flexible\Layouts\OrderingLayoutBranch::class),
 
-           Multiselect::make(__('Branches'), 'branches')->options(
-            Branch::where('type', 'clinic')->pluck('title', 'id')
-            ),
+        //    Multiselect::make(__('Branches'), 'branches')->options(
+        //     Branch::where('type', 'clinic')->pluck('title', 'id')
+        //     ),
 
             Multiselect::make(__('Laboratory'), 'laboratory')->options(
-                Branch::where('type', 'laboratory')->pluck('title', 'id')
+                LaboratoryService::query()->pluck('title', 'id')
                 ),
         ];
         

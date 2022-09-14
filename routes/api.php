@@ -73,13 +73,12 @@ Route::get('pages/home/{locale}', 'PageController@home');
 Route::get('search/{locale}', 'SearchController@all');
 
 
-// Route::post('register', [PassportController::class, 'register']);
-// Route::post('login', [PassportController::class, 'login']);
+
 // put all api protected routes here
 Route::post('patient/login',[LoginController::class, 'patientLogin'])->name('patientLogin');
 Route::group( ['prefix' => 'admin','middleware' => ['auth:patient-api','scopes:patient'] ],function(){
    // authenticated staff routes here 
-    Route::get('dashboard',[LoginController::class, 'patientDashboard']);
+    Route::get('dashboard',[LoginController::class, 'patientDashboard'])->name('login');
 });
 
 Route::post('doctor/login',[LoginController::class, 'doctorLogin'])->name('doctorLogin');
@@ -87,3 +86,6 @@ Route::group( ['prefix' => 'doctor','middleware' => ['auth:doctor-api','scopes:d
    // authenticated staff routes here 
     Route::get('dashboard',[LoginController::class, 'doctorDashboard']);
 });   
+
+//CHAT
+Route::get('chat', 'ChatController@index');

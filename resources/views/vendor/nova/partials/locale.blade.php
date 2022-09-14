@@ -1,4 +1,4 @@
-<!-- <dropdown class="ml-auto h-9 flex items-center dropdown-right">
+<dropdown class="ml-auto h-9 flex items-center dropdown-right">
   <dropdown-trigger class="h-9 flex items-center" slot-scope="{toggle}" :handle-click="toggle">
     <span class="text-90">
       {{ config( 'nova.locales.' . app()->getLocale() ) }}
@@ -22,4 +22,4 @@
 @endforeach
     </ul>
   </dropdown-menu>
-</dropdown> -->
+</dropdown>

@@ -14,4 +14,9 @@ class LaboratoryService extends Model
     public function getCategory() {
         return $this->belongsTo(LaboratoryCategory::class,  'category_id');
     }
+
+    public function newQuery($excludeDeleted = true) {
+        return parent::newQuery($excludeDeleted)
+            ->where('status', '=', 1);
+    }
 }

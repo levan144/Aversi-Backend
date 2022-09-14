@@ -10,7 +10,6 @@
     "require": {
         "php": "^7.3|^8.0",
         "alexazartsev/heroicon": "^2.0",
-        "beyondcode/laravel-mailbox": "^2.2",
         "bolechen/nova-activitylog": "^0.4.0",
         "dniccum/phone-number": "^2.0",
         "ebess/advanced-nova-media-library": "^4.0",
@@ -43,6 +42,8 @@
         "stepanenko3/nova-health": "^1.1",
         "stepanenko3/nova-json": "^3.0",
         "stepanenko3/nova-settings": "^1.0",
+        "webklex/laravel-imap": "1.6.2",
+        "webklex/php-imap": "2.2.5",
         "whitecube/nova-flexible-content": "^1.0"
     },
     "require-dev": {

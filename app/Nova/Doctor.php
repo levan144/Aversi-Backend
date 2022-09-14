@@ -94,8 +94,8 @@ class Doctor extends Resource
             Text::make(__('Email'), 'email')
                 ->sortable()
                 ->rules('required', 'email', 'max:254')
-                ->creationRules('unique:users,email')
-                ->updateRules('unique:users,email,{{resourceId}}'),
+                ->creationRules('unique:doctors,email')
+                ->updateRules('unique:doctors,email,{{resourceId}}'),
 
             Select::make(__('Gender'), 'gender')
                 ->options([

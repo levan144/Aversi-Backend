@@ -34,7 +34,7 @@
     </div>
     <div>
       <div id="dropdowns" name="dropdowns"></div>
-      @include('nova::partials.locale')
+      
       <div id="modals" name="modals"></div>
     </div>
 

@@ -44,7 +44,7 @@ class MenuItemFixedType extends BaseMenuItemType
 public static function getFields(): array
 {
     return [ 
-        Heroicon::make('Icon'),
+        Heroicon::make('Icon')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor(),
 ];
 }
 
