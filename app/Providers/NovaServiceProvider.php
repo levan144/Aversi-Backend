@@ -95,7 +95,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             Novaspatiepermissions::make(),
             \Outl1ne\MenuBuilder\MenuBuilder::make(),
             new \Bolechen\NovaActivitylog\NovaActivitylog(),
-            // new \Outl1ne\NovaSettings\NovaSettings,
             new \Stepanenko3\NovaSettings\NovaSettingsTool(),
             
         ];

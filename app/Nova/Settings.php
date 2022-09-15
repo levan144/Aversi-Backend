@@ -135,7 +135,7 @@ class Settings extends Resource
                                 ->where('type', $request->type ?: $this->type);
                         })
                         ->ignore($request->resourceId)
-                ]),
+                ])->readonly(fn ($request) => $request->isUpdateOrUpdateAttachedRequest()),
 
             Text::make(__('Env'), 'env')
                 ->rules('required')->default('production')->readonly(),

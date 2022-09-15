@@ -53,6 +53,12 @@ Route::get('specialty/{id}/{locale}', 'SpecialtyController@single');
 Route::get('regions/{locale}', 'RegionController@all');
 Route::get('region/{id}/{locale}', 'RegionController@single');
 
+Route::get('analysis/{locale}', 'LabController@all_services');
+Route::get('analysis/{id}/{locale}', 'LabController@single_service');
+
+Route::get('analysis_categories/{locale}', 'LabController@all_categories');
+Route::get('analysis_category/{id}/{locale}', 'LabController@single_category');
+
 //Navigation
 Route::get('menus/positions', 'MenuController@allPositions');
 Route::get('menus/positions/{id}', 'MenuController@singlePosition');
@@ -69,6 +75,8 @@ Route::get('pages/covid/{locale}', 'PageController@covid');
 Route::get('pages/services/{locale}', 'PageController@services');
 Route::get('pages/laboratory/{locale}', 'PageController@laboratory');
 Route::get('pages/home/{locale}', 'PageController@home');
+Route::get('pages/contact', 'PageController@contact');
+Route::get('pages/rules/{locale}', 'PageController@rules');
 //search
 Route::get('search/{locale}', 'SearchController@all');
 

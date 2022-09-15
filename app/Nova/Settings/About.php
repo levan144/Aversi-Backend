@@ -18,9 +18,7 @@ class About extends AbstractType
     public function fields(): array
     {
         return [
-            // Boolean::make('Param 1', 'param_1'),
-            // Boolean::make('Param 2', 'param_2'),
-            // Boolean::make('Param 3', 'param_3'),
+            
             Image::make(__('Cover'), 'cover_image')
                                 ->disk('public')
                                 ->prunable()

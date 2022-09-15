@@ -19,8 +19,8 @@ Route::get('/', function () {
 
 Route::get( '/locale/{locale}', 'Nova\LocaleController@handle' )->name('nova-locale');
 
-Route::get('language/{locale}', function ($locale) {
-    app()->setLocale($locale);
-    session()->put('locale', $locale);
-    return redirect()->back();
-});
+// Route::get('language/{locale}', function ($locale) {
+//     app()->setLocale($locale);
+//     session()->put('locale', $locale);
+//     return redirect()->back();
+// });

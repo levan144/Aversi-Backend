@@ -28,13 +28,14 @@
     </script>
 </head>
 <body class="min-w-site text-sm font-medium min-h-full text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-900">
+    
     @inertia
     <div class="relative z-50">
       <div id="notifications" name="notifications"></div>
     </div>
     <div>
       <div id="dropdowns" name="dropdowns"></div>
-      
+      @include('vendor.nova.partials.locale')
       <div id="modals" name="modals"></div>
     </div>
 

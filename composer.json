@@ -20,6 +20,7 @@
         "itsmejoshua/novaspatiepermissions": "^1.0",
         "kongulov/nova-tab-translatable": "^2.0",
         "laravel/framework": "^8.75",
+        "laravel/helpers": "^1.5",
         "laravel/nova": "~4.0",
         "laravel/passport": "^10.0",
         "laravel/sanctum": "^2.11",

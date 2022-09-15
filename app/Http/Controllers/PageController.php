@@ -103,42 +103,6 @@ class PageController extends Controller
       return response($result, 200);
     }
 
-    // private function get_services_from_ids($service_ids, $locale){
-    //   $services = [];
-    //     //Get Services by ids
-    //     foreach($service_ids as $service_id){
-    //       $service = Service::find(intval($service_id));
-    //       if($service) {
-    //           $service = $service->toArray();
-    //           if($service['status'] == 1){
-    //             $service['title'] = $service['title'][$locale] ?? null;
-    //             $service['content'] = $service['content'][$locale] ?? null;
-    //             $services[] = $service;
-    //           }
-    //       }
-    //     }
-
-    //     return $services;
-    // }
-
-    // private function get_blogs_from_ids($blog_ids, $locale){
-    //   $blogs = [];
-    //     //Get Blogs by ids
-    //     foreach($blog_ids as $blog_id){
-    //       $blog = Blog::find(intval($blog_id));
-    //       if($blog){
-    //           $blog = $blog->toArray();
-    //           if($blog['status'] == 1){
-    //             $blog['title'] = $blog['title'][$locale] ?? null;
-    //             $blog['content'] = $blog['content'][$locale] ?? null;
-    //             $blog['slug'] = $blog['slug'][$locale] ?? null;
-    //             $blogs[] = $blog;
-    //           }
-    //       }
-    //     }
-
-    //     return $blogs;
-    // }
 
     private function get_laboratory_services_from_ids($service_ids, $locale = 'ka'){
       $services = [];
@@ -156,6 +120,18 @@ class PageController extends Controller
         }
 
         return $services;
+    }
+
+    public function contact() {
+      $data = settings('contact', null, null, config('app.env'));
+      return response($data, 200);
+    }
+
+    public function rules($locale) {
+      $data = json_decode(Settings::where('slug', 'rules')->first(), true);
+      $title = $data['title'][$locale] ?? null;
+      $content = $data['settings']['content_' . $locale] ?? null;
+      return response(['page_title' => $title,'content' => $content], 200);
     }
 }
 

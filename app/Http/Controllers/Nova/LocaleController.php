@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Session;
 use URL;
+use App;
 class LocaleController extends Controller
 {
     /**
@@ -15,12 +16,12 @@ class LocaleController extends Controller
      */
     protected $languages = ['en','ka'];
 
-   public function handle($locale='ka'){
-    if (!in_array($locale, ['en', 'ka'])){
-        $locale = 'ka';
+   public function handle($locale){
+        if (!in_array($locale, ['en', 'ka'])){
+            $locale = 'ka';
+        }
+        Session::put('locale', $locale);
+        return redirect(url(URL::previous()));
     }
     
-    \App::setLocale($locale);
-    return redirect(url(URL::previous()));
-    }
 }

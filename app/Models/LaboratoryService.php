@@ -9,7 +9,7 @@ use Spatie\Translatable\HasTranslations;
 class LaboratoryService extends Model
 {
     use HasFactory, HasTranslations;
-    public $translatable = ['title','content'];
+    public $translatable = ['title','content', 'slug'];
 
     public function getCategory() {
         return $this->belongsTo(LaboratoryCategory::class,  'category_id');

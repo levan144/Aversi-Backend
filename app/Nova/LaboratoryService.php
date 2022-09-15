@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Trix;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Fields\Boolean;
@@ -59,6 +60,13 @@ class LaboratoryService extends Resource
             NovaTabTranslatable::make([
                 Text::make(__('Title'), 'title')
                         ->rules('required_lang:ka'),
+                Slug::make(__('Slug'), 'slug')
+                        ->hideFromIndex()
+                        ->from('Title')
+                        ->rules('required_lang:ka')
+                        ->creationRules('unique:laboratory_services,slug')
+                        ->updateRules('unique:laboratory_services,slug,{{resourceId}}')
+                        ->nullable(),
                 Trix::make(__('Content'), 'content')
                         ->rules('required_lang:ka'),    
             ])->hideFromIndex(),

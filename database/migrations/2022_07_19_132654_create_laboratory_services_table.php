@@ -16,6 +16,7 @@ class CreateLaboratoryServicesTable extends Migration
         Schema::create('laboratory_services', function (Blueprint $table) {
             $table->id();
             $table->json('title');
+            $table->json('slug')->nullable();
             $table->json('content')->nullable();
             $table->boolean('status')->default(0);
             $table->integer('category_id');
