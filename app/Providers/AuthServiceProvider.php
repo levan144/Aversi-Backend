@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Patient' => 'App\Policies\PatientPolicy',
+        'App\Models\Patient' => 'App\Policies\PatientPolicy',
     ];
 
     /**
@@ -26,9 +26,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         
-        Passport::routes();
-        
-
+        if (! $this->app->routesAreCached()) {
+            Passport::routes();
+        }
         Passport::tokensCan([
             'patient' => 'Patient User Type',
             'doctor' => 'Doctor User Type',

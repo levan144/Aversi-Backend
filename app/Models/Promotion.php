@@ -10,7 +10,7 @@ class Promotion extends Model
 {
     use HasFactory, HasTranslations;
 
-    public $translatable = ['title' ,'content'];
+    public $translatable = ['title' ,'content','icon'];
 
     public function searchType()
     {

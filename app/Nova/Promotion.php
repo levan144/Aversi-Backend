@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Image;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Illuminate\Support\Facades\Storage;
+use Whitecube\NovaFlexibleContent\Flexible;
+use AlexAzartsev\Heroicon\Heroicon;
 
 class Promotion extends Resource
 {
@@ -72,20 +74,21 @@ class Promotion extends Resource
                             : null;
             })
             ->creationRules('required'),
-
-            Image::make(__('Icon'), 'icon')
-            ->disk('public')
-            ->prunable()
-            ->path('promotion_icons')
-            ->preview(function ($value, $disk) {
-                return $value
-                            ? Storage::disk($disk)->url($value)
-                            : null;
-            })
-            ->hideFromIndex(),
-            Text::make(__('Badge Text'), 'badge_text')->withMeta(['extraAttributes' => [
-    'placeholder' => '-20%']
-]),
+            Flexible::make(__('Badge Text'), 'badge')->limit(1)
+                        ->button(__('Add new'))
+                        ->addLayout(__('Icon'), 'icon', [
+                            Heroicon::make(__('Icon'), 'data')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor(),
+                        ])
+                        ->addLayout(__('Text'), 'text', [
+                            Text::make(__('Badge Text'), 'data')->withMeta(['extraAttributes' => [
+                                'placeholder' => '-20%']
+                            ]),
+                        ])
+                        ->help(
+                        __('This content is used in Badge')
+                        ),
+            
+            
         ];
     }
 

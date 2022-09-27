@@ -13,11 +13,11 @@ class ServiceController extends Controller
       $relations = ['branches'];
       $branch_id = intval($request->input('branch_id')) ?? null;
       if(!$branch_id){
-        $searchType = Service::with('branches');
+        $searchType = Service::with('branches')->where('status', '=', 1);
       } else {
         $searchType = Service::whereHas('branches', function (Builder $query) use ($branch_id) {
             $query->where('id', $branch_id);
-        })->with('branches');
+        })->where('status', '=', 1)->with('branches');
       }
       $perPage = intval($request->input('per_page'));
         if(!$perPage){

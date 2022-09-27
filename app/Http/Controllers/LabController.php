@@ -13,9 +13,9 @@ class LabController extends Controller
         $relations = ['getCategory'];
         $category_id = intval($request->input('category_id')) ?? null;
         if(!$category_id){
-          $searchType = LaboratoryService::query();
+          $searchType = LaboratoryService::where('status', '=', 1);
         } else {
-          $searchType = LaboratoryService::where('category_id', $category_id);
+          $searchType = LaboratoryService::where('category_id', $category_id)->where('status', '=', 1);
         }
         $perPage = intval($request->input('per_page'));
           if(!$perPage){

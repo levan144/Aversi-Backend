@@ -14,7 +14,6 @@ class BranchController extends Controller
       $end_date = $request->input('end_date') ?? null;
       $type = $request->input('type') ?? null;
       $items = Branch::with('services','region');
-
       if($start_date and $end_date) {
         $items = $items->whereBetween('created_at', [
           $start_date, $end_date
@@ -28,6 +27,7 @@ class BranchController extends Controller
       }
       $items = $items->paginate($per_page);
       $mapped = $items->map(function ($item) use ($locale) {
+            $item->gallery = $item->getMedia('photo');
             $item = collect($item)->map(function ($key, $value) use ($locale) {
               if(is_array($key) and !in_array($value, ['services','region','working_time'])){
                 if(isset($key[$locale])) {
@@ -65,8 +65,9 @@ class BranchController extends Controller
 
     public function single($id,$locale) {
       $item = Branch::with('services','region')->findorFail($id);
-
+      $item->gallery = $item->getMedia('photo');
       $mapped = collect($item)->map(function ($key, $value) use ($locale) {
+        
         if(is_array($key)  and !in_array($value, ['services', 'region'])){
           if(isset($key[$locale])) {
             $key = $key[$locale];

@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 
 class Patient extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use  HasFactory, HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -48,7 +47,8 @@ class Patient extends Authenticatable
      */
     protected $casts = [
         'last_login_at'     => 'datetime',
-        'birthday'          => 'date',
+        'birthdate'          => 'date',
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime'
     ];
 }

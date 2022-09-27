@@ -15,5 +15,6 @@ return [
         \App\Nova\Settings\Covid::class,
         \App\Nova\Settings\Contact::class,
         \App\Nova\Settings\Rule::class,
+        \App\Nova\Settings\Vacancy::class,
     ],
 ];

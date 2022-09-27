@@ -13,7 +13,7 @@ class BlogController extends Controller
       $per_page = $request->input('per_page') ?? 15;
       $start_date = $request->input('start_date') ?? null;
       $end_date = $request->input('end_date') ?? null;
-      $items = Blog::with('author');
+      $items = Blog::with('author')->where('status', '=', 1);
       if($start_date and $end_date) {
         $items = $items->whereBetween('created_at', [
           $start_date, $end_date

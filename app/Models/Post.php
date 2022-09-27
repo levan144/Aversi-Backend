@@ -33,9 +33,6 @@ class Post extends Model implements HasMedia
         return 'News';
     }
 
-    public function newQuery($excludeDeleted = true) {
-        return parent::newQuery($excludeDeleted)
-            ->where('status', '=', 1);
-    }
+
     
 }

@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use \Itsmejoshua\Novaspatiepermissions\PermissionsBasedAuthTrait;
 use \Itsmejoshua\Novaspatiepermissions\Role;
@@ -104,11 +105,14 @@ class Doctor extends Resource
                 ]),
 
             Date::make(__('Birthday'), 'birthday'),
-
+            
+           
+        
+            
             Number::make(__('Personal Number'), 'sid')
                 ->sortable()
                 ->rules('required', 'max:11'),
-
+              
             new Panel(__('More details'), $this->moreDetailsFields()),
             new Panel(__('Index details'), $this->onlyTableFields()),
             
@@ -203,7 +207,11 @@ class Doctor extends Resource
                         ]),
                 ]),
                 ]),
+
+               
           ];
+
+          
     }
 
     protected function onlyTableFields()
@@ -212,7 +220,10 @@ class Doctor extends Resource
             Text::make(__('Name'), 'name')->onlyOnIndex(),
             DateTime::make(__('Registered at'),'created_at')
                 ->exceptOnForms(),
-
+            Number::make(__('Rating'), function ($model) {
+                    return $model->rating();
+                })
+                ->sortable(),
             DateTime::make(__('Last login'),'last_login_at')
                 ->exceptOnForms(),
         ];
@@ -410,4 +421,6 @@ class Doctor extends Resource
 
         return $languages_list;
     }
+
+
 }

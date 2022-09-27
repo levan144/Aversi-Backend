@@ -18,8 +18,7 @@ class CreatePromotionsTable extends Migration
             $table->json('title')->nullable();
             $table->json('content')->nullable();
             $table->string('cover_image')->nullable();
-            $table->string('icon')->nullable();
-            $table->string('badge_text')->nullable();
+            $table->json('badge')->nullable();
             $table->timestamps();
         });
     }

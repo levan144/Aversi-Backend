@@ -71,7 +71,7 @@ class Branch extends Resource
             Text::make(__('Title'), 'title')->onlyOnIndex(),
             Select::make(__('Type'), 'type')->options(
                  ['clinic' => __('Clinic'), 'laboratory' => __('Laboratory')]
-            ),
+            )->rules('required'),
             NovaTabTranslatable::make([
                 Text::make(__('Title'), 'title')
                     ->rules('required_lang:ka'),

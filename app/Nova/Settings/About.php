@@ -13,6 +13,7 @@ use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Panel;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Illuminate\Support\Facades\Storage;
+use AlexAzartsev\Heroicon\Heroicon;
 class About extends AbstractType
 {
     public function fields(): array
@@ -47,16 +48,7 @@ class About extends AbstractType
                         ->addLayout(__('Advantage'), 'item', [
                             Text::make(__('Title'), 'title'),
                             Text::make(__('Quantity'), 'quantity'),
-                            Image::make(__('Icon'), 'icon')
-                                ->disk('public')
-                                ->prunable()
-                                ->path('icons')
-                                ->preview(function ($value, $disk) {
-                                    return $value
-                                                ? Storage::disk($disk)->url($value)
-                                                : null;
-                                })
-                                ->creationRules('required'),
+                            Heroicon::make(__('Icon'), 'icon')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor()->creationRules('required'),
                         ]),
                         
                     Trix::make(__('Bottom Description'), 'bottom_description_ka'),
@@ -68,16 +60,7 @@ class About extends AbstractType
                         ->addLayout(__('Advantage'), 'item', [
                             Text::make(__('Title'), 'title'),
                             Text::make(__('Quantity'), 'quantity'),
-                            Image::make(__('Icon'), 'icon')
-                                ->disk('public')
-                                ->prunable()
-                                ->path('icons')
-                                ->preview(function ($value, $disk) {
-                                    return $value
-                                                ? Storage::disk($disk)->url($value)
-                                                : null;
-                                })
-                                ->creationRules('required'),
+                            Heroicon::make(__('Icon'), 'icon')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor()->creationRules('required'),
                         ]),
                     Trix::make(__('Bottom Description'), 'bottom_description_en'),
                 ]),
@@ -88,16 +71,7 @@ class About extends AbstractType
                         ->addLayout(__('Advantage'), 'item', [
                             Text::make(__('Title'), 'title'),
                             Text::make(__('Quantity'), 'quantity'),
-                            Image::make(__('Icon'), 'icon')
-                                ->disk('public')
-                                ->prunable()
-                                ->path('icons')
-                                ->preview(function ($value, $disk) {
-                                    return $value
-                                                ? Storage::disk($disk)->url($value)
-                                                : null;
-                                })
-                                ->creationRules('required'),
+                            Heroicon::make(__('Icon'), 'icon')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor()->creationRules('required'),
                         ]),
                     Trix::make(__('Bottom Description'), 'bottom_description_ru'),
                 ]),

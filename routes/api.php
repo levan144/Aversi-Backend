@@ -84,9 +84,9 @@ Route::get('search/{locale}', 'SearchController@all');
 
 // put all api protected routes here
 Route::post('patient/login',[LoginController::class, 'patientLogin'])->name('patientLogin');
-Route::group( ['prefix' => 'admin','middleware' => ['auth:patient-api','scopes:patient'] ],function(){
+Route::middleware('auth:patient-api')->group(function(){
    // authenticated staff routes here 
-    Route::get('dashboard',[LoginController::class, 'patientDashboard'])->name('login');
+   Route::post('review/store', 'ReviewController@store');
 });
 
 Route::post('doctor/login',[LoginController::class, 'doctorLogin'])->name('doctorLogin');

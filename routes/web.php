@@ -17,7 +17,7 @@ Route::get('/', function () {
     return redirect('/nova');
 });
 
-Route::get( '/locale/{locale}', 'Nova\LocaleController@handle' )->name('nova-locale');
+// Route::get( '/locale/{locale}', 'Nova\LocaleController@handle' )->name('nova-locale');
 
 // Route::get('language/{locale}', function ($locale) {
 //     app()->setLocale($locale);

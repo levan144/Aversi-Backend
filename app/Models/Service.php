@@ -32,10 +32,7 @@ class Service extends Model implements HasMedia
       return $this->hasMany(Service::class, 'parent', 'id' );
     }
 
-    public function newQuery($excludeDeleted = true) {
-      return parent::newQuery($excludeDeleted)
-          ->where('status', '=', 1);
-  }
+    
 
     
 }

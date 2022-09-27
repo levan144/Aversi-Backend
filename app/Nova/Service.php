@@ -17,6 +17,7 @@ use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Boolean;
+use AlexAzartsev\Heroicon\Heroicon;
 class Service extends Resource
 {
     /**
@@ -71,15 +72,7 @@ class Service extends Resource
 
             ])->hideFromIndex(),
 
-            Image::make(__('Icon'), 'icon')
-            ->disk('public')
-            ->prunable()
-            ->path('service_icons')
-            ->preview(function ($value, $disk) {
-                return $value
-                            ? Storage::disk($disk)->url($value)
-                            : null;
-            }),
+            Heroicon::make(__('Icon'), 'icon')->registerIconSet('services', 'Services', resource_path('img/serviceIcons'))->disableEditor(),
 
             Image::make(__('Image'), 'cover_image')
             ->disk('public')
@@ -92,7 +85,7 @@ class Service extends Resource
             })
             ->creationRules('required'),
                 BelongsTo::make(__('Parent'), 'parentModel', 'App\Nova\Service')
-                ->searchable()->nullable()->showOnUpdating(),
+                ->searchable()->nullable()->exceptOnForms(),
                 
                 HasMany::make(__('Child'), 'children', 'App\Nova\Service')
                 ->nullable(),

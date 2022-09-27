@@ -48,6 +48,14 @@ class Doctor extends Authenticatable
         return $this->hasMany(Branch::class, 'id', 'branches')->select('id', 'title');
     }
 
+    public function rating(){
+        return ($this->hasMany(Review::class, 'doctor_id')->where('published', 1)->sum('rating') ?? 1) / ($this->hasMany(Review::class, 'doctor_id')->where('published', 1)->count() > 0 ? $this->hasMany(Review::class, 'doctor_id')->where('published', 1)->count() : 1 ) ?? '-';
+    }
+
+    public function reviews(){
+        return $this->hasMany(Review::class, 'id', 'doctor_id')->where('published', 1);
+    }
+
     public function searchType()
     {
         return 'Doctors';
