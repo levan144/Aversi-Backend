@@ -72,7 +72,7 @@ class Gallery extends Resource
                 'video' => __('Video'),
             ])->rules('required')->hideFromIndex(),
 
-            Images::make(__('Photos'), 'photo')
+            Images::make(__('Photos'), 'gallery')
                 ->enableExistingMedia()
                 ->withResponsiveImages()
                 ->showStatistics()

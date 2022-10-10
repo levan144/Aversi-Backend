@@ -20,15 +20,16 @@ class Post extends Model implements HasMedia
     public function author() {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function getActivitylogOptions(): LogOptions
-{
-    return LogOptions::defaults();
-}
-    public function images() {
-        return $this->hasMany(Media::class, 'id');
+    
+    public function getActivitylogOptions(): LogOptions {
+        return LogOptions::defaults();
     }
-
-  public function searchType()
+    
+    public function images() {
+        return $this->hasMany(Media::class, 'id')->where('model_type', 'App\Models\Post');
+    }
+    
+    public function searchType()
     {
         return 'News';
     }

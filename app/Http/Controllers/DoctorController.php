@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Doctor;
+use App\Models\Branch;
+use App\Models\Specialty;
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 class DoctorController extends Controller
 {
     public function all(Request $request,$locale) {
-      $relations = ['languages','specialties','attached_branches'];
+      $relations = ['languages','specialties','branches'];
 
       $per_page = $request->input('per_page') ?? 15;
       $name = $request->input('name') ?? null;
@@ -21,7 +23,7 @@ class DoctorController extends Controller
       $min_rating = intval($request->input('min_rating')) ?? null;
       $max_rating = intval($request->input('max_rating')) ?? null;
 
-      $items = Doctor::with('specialties');
+      $items = Doctor::query();
      
       
       if($specialty){
@@ -36,6 +38,9 @@ class DoctorController extends Controller
       $items = $items->paginate($per_page);
       $mapped = $items->map(function ($item) use ($locale,$relations,$name) {
             $item['rating'] = $item->rating();
+            $item['branches'] = $this->getByBranchId(json_decode($item->branch_ids) ?? [], $locale); 
+            $item['specialties'] = $this->getBySpecialtyId(json_decode($item->specialty_ids) ?? [], $locale); 
+            
             $item = collect($item)->map(function ($key, $value) use ($locale,$relations,$name, $item) {
               if(is_array($key) and !in_array($value, $relations)){
                   if(isset($key[$locale])) {
@@ -52,10 +57,13 @@ class DoctorController extends Controller
                 } 
               return $key;
           });
-          if($item['name']) {
-            return $item;
-          }
+        
+            if($item['name']) {
+                return $item;
+              }
+           
           return null;
+          
       });
 
       if($min_rating > 0){
@@ -72,9 +80,11 @@ class DoctorController extends Controller
     
 
     public function single($id,$locale) {
-      $relations = ['languages'];
+      $relations = ['languages', 'branches','specialties'];
       $doctor = Doctor::FindorFail($id);
       $doctor->rating = $doctor->rating();
+      $doctor->branches = $this->getByBranchId(json_decode($doctor->branch_ids) ?? [], $locale); 
+      $doctor->specialties = $this->getBySpecialtyId(json_decode($doctor->specialty_ids) ?? [], $locale); 
       $mapped = collect($doctor)->map(function ($key, $value) use ($locale,$relations) {
         if(is_array($key)  and !in_array($value, $relations)){
           if(isset($key[$locale])) {
@@ -84,9 +94,55 @@ class DoctorController extends Controller
             $key = null;
           }
         }
+       
+        
          return $key;
       });
       
       return response($mapped, 200);
+    }
+    
+    private function getByBranchId($branch_ids, $locale = 'ka'){
+        $branches = [];
+        //Get Services by ids
+        foreach($branch_ids as $branch_id){
+          $branch = Branch::find(intval($branch_id));
+          if($branch) {
+              $branch = $branch->toArray();
+              $branch_data = [];
+             
+                $branch_data['id'] = $branch['id'];
+                $branch_data['title'] = $branch['title'][$locale] ?? null;
+                $branch_data['description'] = $branch['description'][$locale] ?? null;
+                $branch_data['address'] = $branch['address'][$locale] ?? null;
+                $branches[] = $branch_data;
+             
+             
+          }
+        }
+
+        return $branches;
+    }
+    
+    private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
+        $specialties = [];
+        //Get Services by ids
+        foreach($specialty_ids as $specialty_id){
+          $specialty = Specialty::find(intval($specialty_id));
+          if($specialty) {
+              $specialty = $specialty->toArray();
+             
+              $specialty_data = [];
+             
+                $specialty_data['id'] = $specialty['id'];
+                $specialty_data['title'] = $specialty['title'][$locale] ?? null;
+             
+                $specialties[] = $specialty_data;
+             
+             
+          }
+        }
+ 
+        return $specialties;
     }
 }

@@ -63,9 +63,9 @@ class LaboratoryService extends Resource
                 Slug::make(__('Slug'), 'slug')
                         ->hideFromIndex()
                         ->from('Title')
-                        ->rules('required_lang:ka')
                         ->creationRules('unique:laboratory_services,slug')
                         ->updateRules('unique:laboratory_services,slug,{{resourceId}}')
+                        ->rules('required_lang:ka')
                         ->nullable(),
                 Trix::make(__('Content'), 'content')
                         ->rules('required_lang:ka'),    
