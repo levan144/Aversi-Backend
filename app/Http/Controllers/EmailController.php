@@ -87,4 +87,15 @@ class EmailController extends Controller
         \Mail::to($details['email'])->send(new \App\Mail\LaboratoryCall($details));
         return response($details, 200);
     }
+	
+
+	public function appointment_rate(Request $request) {
+		$data = $request->all();
+		$details = [
+			'title' => __('ექიმთან ჩაწერის შეფასება'),
+			'message' => $data['message'],		
+		];
+		
+	
+	}
 }
