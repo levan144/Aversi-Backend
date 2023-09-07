@@ -127,4 +127,5 @@ Route::post('email/vacancy', 'EmailController@vacancy');
 Route::post('email/internal_audit', 'EmailController@internal_audit');
 Route::post('email/labcall', 'EmailController@labcall');
 Route::post('email/checkup', 'EmailController@checkup');
+Route::post('email/ratevisit', 'EmailController@appointment_rate');
 
