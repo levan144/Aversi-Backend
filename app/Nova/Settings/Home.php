@@ -176,7 +176,7 @@ class Home extends AbstractType
 
            Flexible::make(__('Sections'), 'sections')
            ->button(__('Add new'))
-           ->addLayout(__('Slider'), \App\Nova\Flexible\Layouts\OrderingLayoutSlider::class)
+           ->addLayout(__('About'), \App\Nova\Flexible\Layouts\OrderingLayoutAbout::class)
            ->addLayout(__('Services'), \App\Nova\Flexible\Layouts\OrderingLayoutService::class)
            ->addLayout(__('Laboratory'), \App\Nova\Flexible\Layouts\OrderingLayoutLab::class)
            ->addLayout(__('Blogs'), \App\Nova\Flexible\Layouts\OrderingLayoutBlog::class)

@@ -25,7 +25,7 @@ class MenuController extends Controller
 
     public function allItemsByPosition($name, $locale) {
       $menu = Menu::where('slug', $name)->first();
-      $menus = MenuItem::where('locale', $locale)->where('menu_id', $menu->id)->orderBy('order', 'asc')->get();
+      $menus = MenuItem::where('locale', $locale)->where('parent_id', null)->where('menu_id', $menu->id)->orderBy('order', 'asc')->get();
       return response($menus, 200);
     }
 

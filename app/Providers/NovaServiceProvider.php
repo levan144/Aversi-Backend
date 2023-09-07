@@ -36,7 +36,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
-        
+        Nova::style('custom', resource_path('css/custom.css'));
         
     }
 

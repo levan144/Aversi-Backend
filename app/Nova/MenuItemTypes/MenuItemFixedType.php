@@ -1,7 +1,6 @@
 <?php
 
 namespace Outl1ne\MenuBuilder\MenuItemTypes;
-use App\Models\Settings;
 use Laravel\Nova\Fields\Image;
 use Storage;
 use Illuminate\Http\Request;
@@ -12,28 +11,31 @@ class MenuItemFixedType extends BaseMenuItemType
 {
     public static function getIdentifier(): string
     {
-        return 'general-url';
+        return 'general-page';
     }
 
     public static function getName(): string
     {
-        return 'General URL';
+        return __('General Pages');
     }
 
     public static function getOptions($locale): array {
     // Example usecase
-    return [
-        '/services' => __('Services'),
-        '/doctors' => __('Doctors'),
-        '/branches' => __('Branches'),
-        '/laboratory' => __('Laboratory'),
-        '/news' => __('News'),
-        '/blog' => __('Blog'),
-        '/contact' => __('Contact'),
-        '/promotions' =>__('Promotions'),
-        '/vacancies' => __('Vacancies'),
-        '/partners' => __('Partners'),
-    ];
+        return [
+            '/services' => __('Services'),
+            '/doctors' => __('Doctors'),
+            '/branches' => __('Branches'),
+            '/laboratory' => __('Laboratory'),
+            '/news' => __('News'),
+            '/blog' => __('Blog'),
+            '/contact' => __('Contact'),
+            '/promotions' =>__('Promotions'),
+            '/vacancies' => __('Vacancies'),
+            '/partners' => __('Partners'),
+            '/about-us' => __('About us'),
+            '/covid' => __('Covid-19 PCR TEST'),
+            '/checkup' => __('Ckeck up information'),
+        ];
 }
 
 /**

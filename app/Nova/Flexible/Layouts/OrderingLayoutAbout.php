@@ -4,14 +4,14 @@ namespace App\Nova\Flexible\Layouts;
 
 use Whitecube\NovaFlexibleContent\Layouts\Layout;
 
-class OrderingLayoutSlider extends Layout
+class OrderingLayoutAbout extends Layout
 {
     /**
      * The layout's unique identifier
      *
      * @var string
      */
-    protected $name = 'orderingSlider';
+    protected $name = 'orderingAbout';
     /**
      * The maximum amount of this layout type that can be added
      */
@@ -21,7 +21,7 @@ class OrderingLayoutSlider extends Layout
      *
      * @var string
      */
-    protected $title = 'Slider';
+    protected $title = 'About';
 
     /**
      * Get the fields displayed by the layout.

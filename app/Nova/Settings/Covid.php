@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\Trix;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Panel;
 use Illuminate\Support\Facades\Storage;
+use AlexAzartsev\Heroicon\Heroicon;
 class Covid extends AbstractType
 {
     public function fields(): array
@@ -25,16 +26,7 @@ class Covid extends AbstractType
                     ->addLayout(__('FAQ'), 'faq', [
                             Text::make(__('Title'), 'title'),
                             Text::make(__('Description'), 'description'),
-                            Image::make(__('Icon'), 'icon_url')
-                                ->disk('public')
-                                ->prunable()
-                                ->path('covid')
-                                ->preview(function ($value, $disk) {
-                                    return $value
-                                                ? Storage::disk($disk)->url($value)
-                                                : null;
-                                })
-                                ->creationRules('required'),
+                            Heroicon::make(__('Icon'),'icon_url')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor()->creationRules('required'),
                        
                 ]),
             ]),
@@ -44,16 +36,7 @@ class Covid extends AbstractType
                 ->addLayout(__('FAQ'), 'faq', [
                         Text::make(__('Title'), 'title'),
                         Text::make(__('Description'), 'description'),
-                        Image::make(__('Icon'), 'icon_url')
-                                ->disk('public')
-                                ->prunable()
-                                ->path('covid')
-                                ->preview(function ($value, $disk) {
-                                    return $value
-                                                ? Storage::disk($disk)->url($value)
-                                                : null;
-                                })
-                                ->creationRules('required'),
+                        Heroicon::make(__('Icon'),'icon_url')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor()->creationRules('required'),
                    
             ]),
         ]),
@@ -63,16 +46,7 @@ class Covid extends AbstractType
                 ->addLayout(__('FAQ'), 'faq', [
                         Text::make(__('Title'), 'title'),
                         Text::make(__('Description'), 'description'),
-                        Image::make(__('Icon'), 'icon_url')
-                                ->disk('public')
-                                ->prunable()
-                                ->path('covid')
-                                ->preview(function ($value, $disk) {
-                                    return $value
-                                                ? Storage::disk($disk)->url($value)
-                                                : null;
-                                })
-                                ->creationRules('required'),
+                        Heroicon::make(__('Icon'),'icon_url')->registerIconSet('custom', 'Custom', resource_path('img/icons'))->disableEditor()->creationRules('required'),
                    
             ]),
             ]),
