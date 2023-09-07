@@ -94,6 +94,7 @@ class EmailController extends Controller
 		$details = [
 			'title' => __('ექიმთან ჩაწერის შეფასება'),
 			'message' => $data['message'],		
+            'rating' => $data['rating'],		
 		];
 
         \Mail::to('levanjavakhishvili.1@gmail.com')->send(new \App\Mail\AppointmentRate($details));
