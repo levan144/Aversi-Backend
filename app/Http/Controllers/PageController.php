@@ -44,7 +44,7 @@ class PageController extends Controller
       
       
       $result = array('page_title' => $title, 'top_description' => $top_description, 'bottom_description' => $bottom_description, 
-      'counters' => $counters , 'advantages_title' => $advantages_title , 'advantages' => $advantages, 'cover_image' => '/app/public/' . $page['settings']['cover_image'], 'meta' => ['title' => $meta_title, 'description' => $meta_description]);
+      'counters' => $counters , 'advantages_title' => $advantages_title , 'advantages' => $advantages, 'cover_image' => $page['settings']['cover_image'], 'meta' => ['title' => $meta_title, 'description' => $meta_description]);
       return response($result, 200);
     }
     
@@ -77,7 +77,7 @@ class PageController extends Controller
       $meta_title = $page['settings']['meta_title_' . $locale] ?? null;
       $meta_description = $page['settings']['meta_description_' . $locale] ?? null;
       
-      return response(array('page_title' => $title, 'sections' => $sections, 'cover_image' => '/app/public/' . $cover_image, 'meta' => ['title' => $meta_title, 'description' => $meta_description]), 200);
+      return response(array('page_title' => $title, 'sections' => $sections, 'cover_image' => $cover_image, 'meta' => ['title' => $meta_title, 'description' => $meta_description]), 200);
     }
 
     public function covid($locale) {
