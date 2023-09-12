@@ -202,7 +202,8 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
                     'phone' => $request->input('phone'),
                     'dateOfBirth' => $request->input('dateOfBirth'),
                 ],
-                'add' => [[
+                'add' => [
+                    [
                     'orderNumber' => time(),
                     'branchId' => null,
                     'branchSourceId' => $request->input('branchSourceId'),
@@ -211,8 +212,10 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
                     'startAt' => $request->input('startAt'),
                     'service' => $request->input('service'),
                     'comment' => 'Test request',
-                ]]
+                    ]
+                ]
             ];
+            
             // Make the API request
             $res = $client->request('POST', 'https://webbooking.aversiclinic.ge/api/Appointments/Set', [
                 'headers' => [
@@ -221,6 +224,7 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
                 ],
                 'json' => $payload
             ]);
+        
             // Decode the API response
             $data = json_decode($res->getBody()->getContents(), true);
             return $data;
