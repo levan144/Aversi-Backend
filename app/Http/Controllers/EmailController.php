@@ -44,7 +44,7 @@ class EmailController extends Controller
             'message' => $data['message'],
             'presenter' => $data['presenter'],
         ];
-        \Mail::to($details['email'])->send(new \App\Mail\InternalAudit($details));
+        \Mail::to('info.clinic@aversi.ge')->send(new \App\Mail\InternalAudit($details));
         return response($details->toJson(JSON_PRETTY_PRINT), 200);
         }
     
@@ -83,8 +83,8 @@ class EmailController extends Controller
             'phone' => $data['phone'],
             'address' => $data['address']
         ];
-        
-        \Mail::to($details['email'])->send(new \App\Mail\LaboratoryCall($details));
+	$email = 'info.clinic@aversi.ge';        
+        \Mail::to($email)->send(new \App\Mail\LaboratoryCall($details));
         return response($details, 200);
     }
 	
@@ -97,7 +97,7 @@ class EmailController extends Controller
             'rating' => $data['rating'],		
 		];
 
-        \Mail::to('levanjavakhishvili.1@gmail.com')->send(new \App\Mail\AppointmentRate($details));
+        \Mail::to('info.clinic@aversi.ge')->send(new \App\Mail\AppointmentRate($details));
         return response($details, 200);
 		
 	

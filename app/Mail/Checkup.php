@@ -28,7 +28,7 @@ class Checkup extends Mailable
      */
     public function build()
     {
-        $mail = $this->subject($this->details['title'])
+        $mail = $this->subject(__('პერიოდული შემოწმების პროგრამა'))
                     ->view('emails.checkup');
                     
         return $mail;
