@@ -227,7 +227,7 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
         
             // Decode the API response
             $data = json_decode($res->getBody()->getContents(), true);
-            
+            return $data;
     }
 
 }
