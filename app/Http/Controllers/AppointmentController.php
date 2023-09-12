@@ -90,7 +90,7 @@ class AppointmentController extends Controller
         }
     }
     $doctors = Doctor::whereIn('sid', $personalIds)
-                    ->select('id', 'name', 'service_id', 'photo', 'specialty_ids', 'source_id')
+                    ->select('id', 'name', 'service_id', 'photo', 'specialty_ids', 'source_id', 'sid')
                     ->get()
                     ->map(function ($doctor) use ($locale) {
                         $doctorArray = $doctor->toArray();
@@ -203,6 +203,7 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
                     'dateOfBirth' => $request->input('dateOfBirth'),
                 ],
                 'add' => [
+                    [
                     'orderNumber' => time(),
                     'branchId' => null,
                     'branchSourceId' => $request->input('branchSourceId'),
@@ -211,6 +212,7 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
                     'startAt' => $request->input('startAt'),
                     'service' => $request->input('service'),
                     'comment' => 'Test request',
+                    ]
                 ]
             ];
             
