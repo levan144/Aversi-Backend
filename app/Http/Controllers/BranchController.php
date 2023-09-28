@@ -9,22 +9,24 @@ class BranchController extends Controller
 {
     public function all(Request $request, $locale) {
       $per_page = $request->input('per_page') ?? 15;
-      $region_id = $request->input('region_id') ?? null;
-      $start_date = $request->input('start_date') ?? null;
-      $end_date = $request->input('end_date') ?? null;
+      $is_region = $request->input('is_region');
+      //$start_date = $request->input('start_date') ?? null;
+      //$end_date = $request->input('end_date') ?? null;
       $type = $request->input('type') ?? null;
       $items = Branch::with('services','region');
-      if($start_date and $end_date) {
-        $items = $items->whereBetween('created_at', [
-          $start_date, $end_date
-        ]);
-      }
+      //if($start_date and $end_date) {
+        //$items = $items->whereBetween('created_at', [
+        //  $start_date, $end_date
+        //]);
+      //}
       if($type){
         $items->where('type', $type);
       }
-      if($region_id){
-        $items->where('region_id', $region_id);
-      }
+      if($is_region === '1'){
+        $items->where('region_id', '!=' ,1);
+      } elseif($is_region == 0) {
+	$items->where('region_id', 1);
+	}
       $items = $items->paginate($per_page);
       $mapped = $items->map(function ($item) use ($locale) {
             $item->gallery = $item->getMedia('photo');
@@ -59,7 +61,7 @@ class BranchController extends Controller
             return $item;
       });
 
-      $details = collect(array('page_number' => $items->currentPage(), 'max_pages' => $items->lastPage(), 'per_page' => $per_page, 'start_date' => $start_date, 'end_date' => $end_date, 'data' => $mapped));
+      $details = collect(array('page_number' => $items->currentPage(), 'max_pages' => $items->lastPage(), 'per_page' => $per_page, 'data' => $mapped));
       return response($details, 200);
     }
 

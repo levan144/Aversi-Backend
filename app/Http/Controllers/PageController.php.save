@@ -103,7 +103,7 @@ class PageController extends Controller
         $settings = $page->settings;
         $title = $page->getTranslations('title')[$locale] ?? null;    
         // Get slides
-	$slides = $settings['slides_' . $locale] ?? null;
+        $slides = '/app/public/' . $settings['slides_' . $locale] ?? null;
     
         // Construct meta tags
         $meta = [

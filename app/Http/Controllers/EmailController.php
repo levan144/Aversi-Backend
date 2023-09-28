@@ -61,7 +61,7 @@ class EmailController extends Controller
             'title' => $data['title'],
             'phone' => $data['phone'],
         ];
-        
+//	dd(\Mail::to($email)->send(new \App\Mail\Checkup($details)));        
         \Mail::to($email)->send(new \App\Mail\Checkup($details));
         return response($details, 200);
     }

@@ -87,7 +87,7 @@ class User extends Resource
                 'female' => 'Female',
                 ]),
 
-            Date::make(__('Birthday'), 'birthday'),
+//            Date::make(__('Birthday'), 'birthday'),
 
             Text::make(__('Personal Number'), 'sid')
                 ->sortable()
@@ -99,9 +99,9 @@ class User extends Resource
             DateTime::make(__('Last login'),'last_login_at')
                 ->exceptOnForms(),
 
-            Boolean::make(__('Verified'), 'phone_verified_at')
-                ->trueValue(1, __('Yes'))
-                ->falseValue(0, __('No')),
+  //          Boolean::make(__('Verified'), 'phone_verified_at')
+    //            ->trueValue(1, __('Yes'))
+      //          ->falseValue(0, __('No')),
 
             Password::make(__('Password'), 'password')
                 ->onlyOnForms()

@@ -7,7 +7,7 @@ use Auth;
 use App\Http\Requests\SmsSendRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
+use App\Models\Patient;
 class VerificationController extends Controller
 {
     /**
@@ -81,7 +81,7 @@ class VerificationController extends Controller
         // Check errorCode in the response
         if($response['errorCode'] == 0){
             // ErrorCode is 0, user is verified
-            $user = Patient::find($request->id);
+            //$user = Patient::find($request->id);
             $user->phone_verified_at = now();
             $user->save();
 

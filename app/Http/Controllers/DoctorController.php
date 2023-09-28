@@ -45,12 +45,12 @@ class DoctorController extends Controller
                         $key = null;
                       }
                   } 
-                //   if($value === 'name' and $name) {
-                //       if(preg_match("/{$name}/i", $key)) {
-                //           return $key;
-                //       } 
-                //       return false;
-                //     } 
+                   if($value === 'name' and $name) {
+                       if(preg_match("/{$name}/i", $key)) {
+                           return $key;
+                       } 
+                       return false;
+                     } 
                   return $key;
               });
         
