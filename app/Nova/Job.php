@@ -10,6 +10,8 @@ use Laravel\Nova\Fields\Slug;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Date;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class Job extends Resource
 {
     /**
@@ -62,7 +64,8 @@ class Job extends Resource
                         ->from('Title')
                         ->rules('required_lang:ka'),
 
-                Trix::make(__('Content'), 'content'),
+                // Trix::make(__('Content'), 'content'),
+                TinymceEditor::make(__('Content'), 'content'),
 
                 Text::make(__('Position'), 'position'),
 

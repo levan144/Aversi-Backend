@@ -40,6 +40,6 @@ class CustomDataController extends Controller
         $customData->value = number_format($totalPatientQuantitySum, 0);
         $customData->save();
         // Output or return the total sum
-        return $responseBody;
+        return $customData;
     }
 }

@@ -23,6 +23,8 @@ use Storage;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
 use Laravel\Nova\Query\Search\SearchableJson;
 use SadekD\NovaOpeningHoursField\NovaOpeningHoursField;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class Branch extends Resource
 {
     /**
@@ -75,14 +77,17 @@ class Branch extends Resource
             NovaTabTranslatable::make([
                 Text::make(__('Title'), 'title')
                     ->rules('required_lang:ka'),
-                Trix::make(__('Content'), 'description')
-                    ->rules('required_lang:ka'),
+                // Trix::make(__('Content'), 'description')
+                //     ->rules('required_lang:ka'),
+                TinymceEditor::make(__('Content'), 'description')
+                        ->rules(['required_lang:ka']),
                 
                 Text::make(__('Address'), 'address')
                     ->rules('required_lang:ka'),
             ])->hideFromIndex(),
             BelongsTo::make(__('Region'), 'region', 'App\Nova\Region'),
             Text::make(__('Email'), 'email'),
+	    Text::make(__('Phone'), 'phone'),
             Text::make(__('Longitude'), 'longitude'),
             Text::make(__('Latitude'), 'latitude'),
             

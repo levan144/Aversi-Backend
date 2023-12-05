@@ -18,6 +18,8 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\Boolean;
 use AlexAzartsev\Heroicon\Heroicon;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class Service extends Resource
 {
     /**
@@ -66,9 +68,10 @@ class Service extends Resource
             NovaTabTranslatable::make([
                 Text::make(__('Title'), 'title')
                     ->rules('required_lang:ka'),
-
-                Trix::make(__('Content'), 'content')
-                    ->rules('required_lang:ka'),
+                TinymceEditor::make(__('Content'), 'content')
+                ->rules('required_lang:ka'),
+                // Trix::make(__('Content'), 'content')
+                //     ->rules('required_lang:ka'),
 
             ])->hideFromIndex(),
 

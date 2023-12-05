@@ -8,8 +8,8 @@ use App\Models\Job;
 class JobController extends Controller
 {
     public function all(Request $request, $locale) {
-      $per_page = $request->input('per_page') ?? 15;
-      $items = Job::paginate($per_page);
+      $per_page = $request->input('per_page') ?? 150;
+      $items = Job::OrderByDesc('created_at')->paginate($per_page);
       $mapped = $items->map(function ($item) use ($locale) {
             $item = collect($item)->map(function ($key, $value) use ($locale) {
               if(is_array($key) ){

@@ -6,8 +6,9 @@ use App\Models\Article;
 use App\Models\Blog;
 use App\Models\Post;
 use App\Models\Doctor;
-
+use App\Models\AppointmentService;
 use App\Models\Promotion;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,7 @@ use App\Models\Promotion;
 Route::get('/', function () {
     return redirect('/nova');
 });
+
 Route::get('/login', function () {
    return response()->json([
             'success'   => false,
@@ -38,19 +40,22 @@ Route::post('/payments/redirect', function(Request $request){
 Route::get('/set-language/{language}', 'LanguageController@setLanguage');
 
 Route::get('/testroute', function(){
+
     $client = new GuzzleHttp\Client();
     
     // $res = $client->request('GET', 'https://rustavi-webmed.aversiclinic.ge/Statistic/TotalVisits', ['auth' => ['4a26d78c-ff15-41fa-87ce-61881c5ce91e', '90446098-e567-4490-8bab-fae4273420ab']]);
-    // $res = $client->request('GET', 'https://clinic-webmed.aversiclinic.ge/Patient/SendSmsVerification', ['auth' => ['d01a667f-a60e-4772-9ac4-46d7e378442e', 'ebd6b155-782b-4131-a237-a530da11d5ba']]);
-        // $res = $client->request('POST', 'https://webbooking.aversiclinic.ge/api/Services/list', ['headers' => ['Content-Type' => 'application/json'], 'json' => [
+     //$res = $client->request('GET', 'https://clinic-webmed.aversiclinic.ge/Patient/SendSmsVerification', ['auth' => ['d01a667f-a60e-4772-9ac4-46d7e378442e', 'ebd6b155-782b-4131-a237-a530da11d5ba']]);
+       //  $res = $client->request('POST', 'https://webbooking.aversiclinic.ge/api/Services/list', ['headers' => ['Content-Type' => 'application/json'], 'json' => [
         // 'organizationId' => '581abe35-a12c-489a-75cc-08da212c2926'], 'auth' => ['4511aac9-57ef-4d83-acea-54b8a1a44ae0', 'b1f3fde2-2139-46a5-b60a-7dcb2256ecc4']]);
     //  $res = $client->request('POST', 'https://webbooking.aversiclinic.ge/api/Calendars/getSchedule', ['headers' => ['Content-Type' => 'application/json'], 'json' => [
     //     'organizationSourceId' => '5', 'startDate' => '2023-06-08T06:12:44.359Z', 'endDate' => '2023-06-09T06:12:44.359Z'], 'auth' => ['4511aac9-57ef-4d83-acea-54b8a1a44ae0', 'b1f3fde2-2139-46a5-b60a-7dcb2256ecc4']]);
     
     
     $res = $client->request('POST', 'https://webbooking.aversiclinic.ge/api/People/list', ['headers' => ['Content-Type' => 'application/json'], 'json' => [
-        'organizationId' => '581abe35-a12c-489a-75cc-08da212c2926'], 'auth' => ['4511aac9-57ef-4d83-acea-54b8a1a44ae0', 'b1f3fde2-2139-46a5-b60a-7dcb2256ecc4']]);
-    // foreach(json_decode($res->getBody()) as $doc) {
+        'organizationId' => '581abe35-a12c-489a-75cc-08da212c2926', 'serviceId' => '9e6b67c3-cae2-455c-9db5-08daab4fdc45'], 'auth' => ['4511aac9-57ef-4d83-acea-54b8a1a44ae0', 'b1f3fde2-2139-46a5-b60a-7dcb2256ecc4']]);
+    
+	dd(json_decode($res->getBody()));
+// foreach(json_decode($res->getBody()) as $doc) {
     //     $doctor = Doctor::where('sid', $doc->personalId)->first();
     //     if($doctor){
     //         $doctor->service_id = $doc->id;
@@ -64,8 +69,19 @@ Route::get('/testroute', function(){
     //     'json' => [
     //         'organizationId' => '581abe35-a12c-489a-75cc-08da212c2926'],
     //     ]);
-    dd(json_decode($res->getBody()));
-    
+
+	foreach(json_decode($res->getBody(), true) as $s) {
+		$ss = AppointmentService::where('code', $s['code'])->first();
+		
+if($ss) {
+
+$ss->service_id = $s['id'];
+$ss->save();
+echo 'good';
+	}    
+echo 'bad';
+//dd(json_decode($res->getBody()));
+}    
 });
 
  function create_slug($string){

@@ -23,8 +23,8 @@ class EmailController extends Controller
             'email' => $data['email'],
             'attachment' => $data['attachment'] ?? null
         ];
-        \Mail::to($details['email'])->send(new \App\Mail\VacancyMail($details));
-        return response($details->toJson(JSON_PRETTY_PRINT), 200);
+        \Mail::to('hr_clinic@aversi.ge')->send(new \App\Mail\VacancyMail($details));
+        return response($details, 200);
     }
     
      /**

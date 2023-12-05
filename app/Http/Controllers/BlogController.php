@@ -8,37 +8,36 @@ use Illuminate\Support\Arr;
 class BlogController extends Controller
 {
 
+  public function all(Request $request, $locale) {
+    $per_page = $request->input('per_page', 12);
+    $start_date = $request->input('start_date');
+    $end_date = $request->input('end_date');
+    $page = $request->input('page', 1);
+    $query = Blog::where('status', 1)
+        //->when($start_date && $end_date, function ($query) use ($start_date, $end_date) {
+        //    $query->whereBetween('created_at', [$start_date, $end_date]);
+        //})
+        ->orderByDesc('created_at')->orderBy('id', 'desc');
 
-    public function all(Request $request, $locale) {
-      $per_page = $request->input('per_page') ?? 15;
-      $start_date = $request->input('start_date') ?? null;
-      $end_date = $request->input('end_date') ?? null;
-      $items = Blog::with('author')->where('status', '=', 1)->orderBy('created_at','DESC');
-      if($start_date and $end_date) {
-        $items = $items->whereBetween('created_at', [
-          $start_date, $end_date
-        ]);
-      }
-      $items = $items->paginate($per_page);
-      $mapped = $items->map(function ($item) use ($locale) {
-            $item = collect($item)->map(function ($key, $value) use ($locale) {
+    $items = $query->paginate($per_page, '*' , 'page', $page);
 
-              if(is_array($key) and $value !== 'author'){
+    $mapped = $items->map(function ($item) use ($locale) {
+        return collect($item->toArray())->map(function ($key) use ($locale) {
+            return is_array($key) ? ($key[$locale] ?? null) : $key;
+        });
+    });
 
-                if(isset($key[$locale])) {
-                  $key = $key[$locale];
-                } else {
-                  $key = null;
-                }
-              }
-              return $key;
-          });
-            return $item;
-      });
+    $details = [
+        'page_number' => $items->currentPage(),
+        'max_pages' => $items->lastPage(),
+        'per_page' => $per_page,
+        'start_date' => $start_date,
+        'end_date' => $end_date,
+        'data' => $mapped,
+    ];
 
-      $details = collect(array('page_number' => $items->currentPage(), 'max_pages' => $items->lastPage(), 'per_page' => $per_page,  'start_date' => $start_date, 'end_date' => $end_date, 'data' => $mapped));
-      return response($details->toJson(JSON_PRETTY_PRINT), 200);
-    }
+    return response()->json($details, 200);
+}
 
     public function single($id, $locale) {
       $blog = Blog::with('author')->findorFail($id);

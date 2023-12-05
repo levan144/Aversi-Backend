@@ -89,6 +89,11 @@ Route::get('search/{locale}', 'SearchController@all');
 Route::post('sms/send', 'VerificationController@sms_send')->name('sms.send');
 Route::post('sms/verify', 'VerificationController@sms_verify')->name('sms.verify');
 
+Route::post('reset/check', 'PasswordResetController@check')->name('email.reset.check');
+Route::post('reset/send', 'PasswordResetController@send')->name('email.reset.send');
+Route::post('reset/verify', 'PasswordResetController@verify')->name('email.reset.verify');
+Route::post('reset/password', 'PasswordResetController@password')->name('email.reset.password');
+
 // put all api protected routes here
 Route::post('patient/register',[RegisterController::class, 'store'])->name('patient.register');
 Route::post('patient/login',[LoginController::class, 'patientLogin'])->name('patient.login');

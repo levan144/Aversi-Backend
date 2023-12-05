@@ -50,9 +50,11 @@ class PatientController extends Controller
     
     public function profile_update(ProfileUpdateRequest $request){
         $patient = Auth::guard('patient-api')->user();
+	if($request->file('photo')) {
         $image_path = $request->file('photo')->store('patients', 'public');
         $data = $request->all();
         $data['photo'] = $image_path;
+	}
         $patient->update($data);
         return response()->json([
             'success'   => true,

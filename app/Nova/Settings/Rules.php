@@ -8,7 +8,9 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Eminiarts\Tabs\Tab;
 use Eminiarts\Tabs\Tabs;
-class Rule extends AbstractType
+use Murdercode\TinymceEditor\TinymceEditor;
+
+class Rules extends AbstractType
 {
     public function fields(): array
     {
@@ -24,14 +26,17 @@ class Rule extends AbstractType
         return [
             new Tabs(__("Content"), [
                 new Tab(__("Georgian"), [
-                    Trix::make(__('Content'), 'content_ka'),
+                    TinymceEditor::make(__('Content'), 'content_ka'),
+                    // Trix::make(__('Content'), 'content_ka'),
                 ]),
                 new Tab(__("English"), [
-                    Trix::make(__('Content'), 'content_en'),
+                    TinymceEditor::make(__('Content'), 'content_en'),
+                    // Trix::make(__('Content'), 'content_en'),
                     
                 ]),
                 new Tab(__("Russian"), [
-                    Trix::make(__('Content'), 'content_ru'),
+                    TinymceEditor::make(__('Content'), 'content_ru'),
+                    // Trix::make(__('Content'), 'content_ru'),
                    
                 ]),
             ]),

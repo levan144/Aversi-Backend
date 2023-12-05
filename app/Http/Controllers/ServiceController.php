@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Branch;
 use App\Models\Region;
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,9 +16,8 @@ class ServiceController extends Controller
       if(!$branch_id){
         $searchType = Service::with('branches')->where('status', '=', 1);
       } else {
-        $searchType = Service::whereHas('branches', function (Builder $query) use ($branch_id) {
-            $query->where('id', $branch_id);
-        })->where('status', '=', 1)->with('branches');
+	$branch = Branch::findOrFail($branch_id);
+        $searchType = Service::whereIn('id', $branch->service_ids);
       }
       $perPage = intval($request->input('per_page'));
         if(!$perPage){
@@ -28,7 +28,7 @@ class ServiceController extends Controller
       ->beginWithWildcard()
       ->orderByRelevance()
       ->includeModelType()
-      ->paginate($perPage, $pageName = 'page', $page = $request->input('page') ?? 1)
+      ->paginate(100, $pageName = 'page', $page = $request->input('page') ?? 1)
       ->search($search_term);
    
       
@@ -69,7 +69,7 @@ class ServiceController extends Controller
     }
 
     public function single($id,$locale) {
-      $relations = ['branches'];
+      $relations = [];
       $service = Service::with($relations)->FindorFail($id);
       $mapped = collect($service)->map(function ($key, $value) use ($locale,$relations) {
         if(is_array($key)  and !in_array($value, $relations)){
@@ -80,22 +80,22 @@ class ServiceController extends Controller
             $key = null;
           }
         }
-
-        if(in_array($value, ['branches'])){
-                $key = collect($key)->map(function ($branch, $val) use ($locale) {
-               
-                    $branch['title'] = $branch['title'][$locale] ?? null;
-                    $branch['description'] = $branch['description'][$locale] ?? null;
-                    $branch['address'] = $branch['address'][$locale] ?? null;
-                    $branch['region'] = json_decode(Region::find($branch['region_id']))->title->$locale;
-               
-                  return $branch;
-                });
-        }
-
          return $key;
       });
-
+	$mapped->toArray();
+	$mapped['branches'] = Branch::where('service_ids','like' ,'%'.$id.'%')->with('region')->get()->toArray();
+	$mapped['branches'] = array_map(function ($branch) use ($locale) {
+        // Load translatable fields in the specified locale
+   	$branch['title'] = $branch['title'][$locale] ?? null;
+	$branch['description'] = $branch['description'][$locale] ?? null;
+	$branch['address'] = $branch['address'][$locale] ?? null;
+	$branch['note'] = $branch['note'][$locale] ?? null;
+	$branch['emergency'] = $branch['emergency'][$locale] ?? null;
+	$branch['region'] = $branch['region']['title'][$locale] ?? null;
+   //     $branch->address = $branch->getTranslation('address', $locale);
+	
+        return $branch;
+    }, $mapped['branches']);
       return response($mapped, 200);
     }
 }

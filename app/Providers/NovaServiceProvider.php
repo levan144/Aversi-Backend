@@ -12,14 +12,14 @@ use Laravel\Nova\Menu\MenuItem;
 use Laravel\Nova\Menu\MenuSection;
 use Laravel\Nova\Nova\Dashboards\Main;
 //Health
-use Spatie\Health\Facades\Health;
+/*use Spatie\Health\Facades\Health;
 use Spatie\Health\Checks\Checks\UsedDiskSpaceCheck;
 use Spatie\Health\Checks\Checks\DatabaseCheck;
 use Spatie\Health\Checks\Checks\CacheCheck;
 use Spatie\CpuLoadHealthCheck\CpuLoadCheck;
 use Spatie\Health\Checks\Checks\EnvironmentCheck;
 use Spatie\Health\Checks\Checks\DebugModeCheck;
-use Spatie\Health\Checks\Checks\ScheduleCheck;
+use Spatie\Health\Checks\Checks\ScheduleCheck; */
 // Permissions
 use Itsmejoshua\Novaspatiepermissions\Novaspatiepermissions;
 use App\Nova\User;
@@ -37,7 +37,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         parent::boot();
         Nova::style('custom', resource_path('css/custom.css'));
-        
+	Nova::withoutNotificationCenter();        
     }
 
     /**
@@ -91,7 +91,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new \Stepanenko3\NovaHealth\NovaHealth,
+            //new \Stepanenko3\NovaHealth\NovaHealth,
             Novaspatiepermissions::make(),
             \Outl1ne\MenuBuilder\MenuBuilder::make(),
             new \Bolechen\NovaActivitylog\NovaActivitylog(),
@@ -107,6 +107,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     public function register()
     {
+/*
         Health::checks([
             CacheCheck::new(),
             DatabaseCheck::new(),
@@ -115,5 +116,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
             ScheduleCheck::new(),
             UsedDiskSpaceCheck::new(),
              ]);
+*/
     }
 }

@@ -15,6 +15,8 @@ use Laravel\Nova\Panel;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Illuminate\Support\Facades\Storage;
 use AlexAzartsev\Heroicon\Heroicon;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class About extends AbstractType
 {
     public function fields(): array
@@ -32,8 +34,7 @@ class About extends AbstractType
                                     return $value
                                                 ? Storage::disk($disk)->url($value)
                                                 : null;
-                                })
-                                ->creationRules('required'),
+                                }),
             new Panel(__('Content'), $this->generalFields()),
             new Panel(__('Advantages'), $this->advantagesFields()),
             new Panel(__('Meta Tags'), $this->metaFields()),
@@ -46,7 +47,8 @@ class About extends AbstractType
             new Tabs(__("Content"), [
                 new Tab(__("Georgian"), [
                     
-                    Trix::make(__('Top Description'), 'top_description_ka'),
+                    // Trix::make(__('Top Description'), 'top_description_ka'),
+                    TinymceEditor::make(__('Top Description'), 'top_description_ka'),
                     Flexible::make(__('Counters'), 'counters_ka')
                         ->button(__('Add new'))
                         ->addLayout(__('Advantage'), 'item', [
@@ -64,11 +66,11 @@ class About extends AbstractType
                             Number::make(__('Quantity'), 'quantity')->readonly(true),
                             Heroicon::make(__('Icon'), 'icon')->registerIconSet('custom', 'Custom', resource_path('img/aboutIcons'))->only(['custom'])->disableEditor()->creationRules('required'),
                         ])->limit(5),
-                        
-                    Trix::make(__('Bottom Description'), 'bottom_description_ka'),
+                    TinymceEditor::make(__('Bottom Description'), 'bottom_description_ka'),
+                    // Trix::make(__('Bottom Description'), 'bottom_description_ka'),
                 ]),
                 new Tab(__("English"), [
-                    Trix::make(__('Top Description'), 'top_description_en'),
+                    TinymceEditor::make(__('Top Description'), 'top_description_en'),
                     Flexible::make(__('Counters'), 'counters_en')
                         ->button(__('Add new'))
                         ->addLayout(__('Advantage'), 'item', [
@@ -86,10 +88,11 @@ class About extends AbstractType
                             Number::make(__('Quantity'), 'quantity')->readonly(true),
                             Heroicon::make(__('Icon'), 'icon')->registerIconSet('custom', 'Custom', resource_path('img/aboutIcons'))->only(['custom'])->disableEditor()->creationRules('required'),
                         ])->limit(5),
-                    Trix::make(__('Bottom Description'), 'bottom_description_en'),
+                    TinymceEditor::make(__('Bottom Description'), 'bottom_description_en'),
+                    // Trix::make(__('Bottom Description'), 'bottom_description_en'),
                 ]),
                 new Tab(__("Russian"), [
-                    Trix::make(__('Top Description'), 'top_description_ru'),
+                    TinymceEditor::make(__('Top Description'), 'top_description_ru'),
                     Flexible::make(__('Counters'), 'counters_ru')
                         ->button(__('Add new'))
                         ->addLayout(__('Advantage'), 'item', [
@@ -107,7 +110,8 @@ class About extends AbstractType
                             Number::make(__('Quantity'), 'quantity')->readonly(true),
                             Heroicon::make(__('Icon'), 'icon')->registerIconSet('custom', 'Custom', resource_path('img/aboutIcons'))->only(['custom'])->disableEditor()->creationRules('required'),
                         ])->limit(5),
-                    Trix::make(__('Bottom Description'), 'bottom_description_ru'),
+                    TinymceEditor::make(__('Bottom Description'), 'bottom_description_ru'),
+                    // Trix::make(__('Bottom Description'), 'bottom_description_ru'),
                 ]),
             ]),
         ];
@@ -118,9 +122,12 @@ class About extends AbstractType
         return [
             new Tabs(__("Content"), [
                 new Tab(__("Georgian"), [
-                    Trix::make(__('Title'), 'advantages_title_ka')->help(
+                    TinymceEditor::make(__('Title'), 'advantages_title_ka')->help(
                         __('This content is used in About us Advantages Section')
                     ),
+                    // Trix::make(__('Title'), 'advantages_title_ka')->help(
+                    //     __('This content is used in About us Advantages Section')
+                    // ),
                     Flexible::make(__('Advantages'), 'advantages_ka')
                         ->button(__('Add new'))
                         ->addLayout(__('Advantage'), 'advantage', [
@@ -132,9 +139,12 @@ class About extends AbstractType
                    
                 ]),
                 new Tab(__("English"), [
-                    Trix::make(__('Title'), 'advantages_title_en')->help(
+                    TinymceEditor::make(__('Title'), 'advantages_title_en')->help(
                         __('This content is used in About us Advantages Section')
                     ),
+                    // Trix::make(__('Title'), 'advantages_title_en')->help(
+                    //     __('This content is used in About us Advantages Section')
+                    // ),
                     Flexible::make(__('Advantages'), 'advantages_en')
                         ->button(__('Add new'))
                         ->addLayout(__('Advantage'), 'advantage', [
@@ -145,9 +155,12 @@ class About extends AbstractType
                         ),
                 ]),
                 new Tab(__("Russian"), [
-                    Trix::make(__('Title'), 'advantages_title_ru')->help(
+                    TinymceEditor::make(__('Title'), 'advantages_title_ru')->help(
                         __('This content is used in About us Advantages Section')
                     ),
+                    // Trix::make(__('Title'), 'advantages_title_ru')->help(
+                    //     __('This content is used in About us Advantages Section')
+                    // ),
                     Flexible::make(__('Advantages'), 'advantages_ru')
                         ->button(__('Add new'))
                         ->addLayout(__('Advantage'), 'advantage', [

@@ -15,6 +15,7 @@ use Laravel\Nova\Fields\DateTime;
 use Illuminate\Support\Facades\Storage;
 use App\Nova\User;
 use Laravel\Nova\Panel;
+use Murdercode\TinymceEditor\TinymceEditor;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 class Blog extends Resource
 {
@@ -72,9 +73,13 @@ class Blog extends Resource
                     ->from('Title')
                     ->rules('required_lang:ka')
                     ->nullable(),
+		TinymceEditor::make(__('Content'), 'content')
+                ->rules(['required_lang:ka'])
+//                ->fullWidth()
+                ->help(__('The content of the article.')),
 
-                Trix::make(__('Content'), 'content')
-                    ->rules('required_lang:ka'),
+   //             Trix::make(__('Content'), 'content')
+    //                ->rules('required_lang:ka'),
             ])->hideFromIndex(),
             
             BelongsTo::make(__('Category'), 'category', BlogCategory::class)->nullable(),

@@ -269,7 +269,7 @@ class PageController extends Controller
     public function partners($locale) {
         $page = json_decode(Settings::where('slug', 'partners')->first(), true);
         $title = $page['title'][$locale] ?? null;
-        $cover_image = $data['settings']['cover_image'] ?? null;
+        $cover_image = $page['settings']['cover_image'] ?? null;
         return response(['page_title' => $title,'cover_image' => $cover_image], 200);
     }
     

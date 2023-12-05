@@ -169,7 +169,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+	Eminiarts\Tabs\TabsServiceProvider::class,
         /*
          * Application Service Providers...
          */

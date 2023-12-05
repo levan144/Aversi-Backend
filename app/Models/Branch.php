@@ -25,10 +25,14 @@ class Branch extends Model implements HasMedia
         'service_ids',
        ];
 
+	public function scopeFilterByServiceId($query, $service_id)
+{
+    return $query->where('service_ids', 'LIKE', '%"'.$service_id.'"%');
+}
+
     public function services(){
         return $this->hasMany(Service::class, 'id')->select('id','title','content','icon');
     }
-
     public function region(){
         return $this->belongsTo(Region::class, 'region_id', 'id')->select('id', 'title');
     }

@@ -11,6 +11,8 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Panel;
 use Whitecube\NovaFlexibleContent\Flexible;
 use Illuminate\Support\Facades\Storage;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class Laboratory extends AbstractType
 {
     public function fields(): array
@@ -28,15 +30,18 @@ class Laboratory extends AbstractType
         return [
             new Tabs(__("Content"), [
                 new Tab(__("Georgian"), [
-                    Trix::make(__('Content'), 'content_ka'),
+                    // Trix::make(__('Content'), 'content_ka'),
+                    TinymceEditor::make(__('Content'), 'content_ka'),
                     ]),
 
                 new Tab(__("English"), [
-                    Trix::make(__('Content'), 'content_en'),
+                    // Trix::make(__('Content'), 'content_en'),
+                    TinymceEditor::make(__('Content'), 'content_en'),
                     ]),
                 
                 new Tab(__("Russian"), [
-                    Trix::make(__('Content'), 'content_ru'),
+                    // Trix::make(__('Content'), 'content_ru'),
+                    TinymceEditor::make(__('Content'), 'content_ru'),
                 ]),
             ]),
         ];

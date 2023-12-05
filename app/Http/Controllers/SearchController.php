@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Post;
 use App\Models\Doctor;
+use App\Models\Service;
+use App\Models\LaboratoryService;
 use App\Models\Branch;
 use App\Models\Job;
 use App\Models\Promotion;
@@ -24,6 +26,8 @@ class SearchController extends Controller
     $results = Search::add(Blog::class, 'title->' . $locale)
     ->add(Post::class, 'title->' . $locale)
     ->add(Doctor::class, 'name->' . $locale)
+    ->add(Service::class, 'title->' .$locale)
+    ->add(LaboratoryService::class, 'title->' . $locale)
     ->add(Branch::class, 'title->' . $locale)
     ->add(Job::class, 'title->' . $locale)
     ->add(Promotion::class, 'title->' . $locale)

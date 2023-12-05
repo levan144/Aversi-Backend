@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Trix;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Illuminate\Support\Facades\Storage;
 use Ebess\AdvancedNovaMediaLibrary\Fields\Images;
+use Murdercode\TinymceEditor\TinymceEditor;
 class Hardware extends Resource
 {
     /**
@@ -55,13 +56,19 @@ class Hardware extends Resource
             NovaTabTranslatable::make([
                 Text::make(__('Title'), 'title')
                     ->rules('required_lang:ka'),
-                Trix::make(__('Description'), 'description')
-                    ->rules('required_lang:ka'),
+		    TinymceEditor::make(__('Description'), 'description')
+                ->rules(['required_lang:ka', 'min:20'])
+//                ->fullWidth()
+                ->help(__('The content of the article.')),
+
+//                Trix::make(__('Description'), 'description')
+  //                  ->rules('required_lang:ka'),
             ])->hideFromIndex(),
             Images::make(__('Photos'), 'photo')
                 ->enableExistingMedia()
                 ->withResponsiveImages()
                 ->showStatistics(),
+	
         ];
     }
 

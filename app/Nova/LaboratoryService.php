@@ -13,6 +13,8 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\BelongsTo;
 use App\Models\LaboratoryCategory;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class LaboratoryService extends Resource
 {
     /**
@@ -65,8 +67,10 @@ class LaboratoryService extends Resource
                         ->from('Title')
                         ->rules('required_lang:ka')
                         ->nullable(),
-                Trix::make(__('Content'), 'content')
-                        ->rules('required_lang:ka'),    
+                // Trix::make(__('Content'), 'content')
+                //         ->rules('required_lang:ka'),    
+                TinymceEditor::make(__('Content'), 'content')
+                        ->rules(['required_lang:ka']),
             ])->hideFromIndex(),
             
             BelongsTo::make(__('Category'), 'getCategory', 'App\Nova\LaboratoryCategory'),

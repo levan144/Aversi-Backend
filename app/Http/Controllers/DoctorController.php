@@ -28,6 +28,9 @@ class DoctorController extends Controller
       if($branch){
         $items->whereJsonContains('branch_ids', $branch);
       }
+      if($name) {
+        $items->where('name->' . $locale , 'LIKE', '%' . $name . '%');
+      }
      
       $items = $items->paginate($per_page);
       
@@ -45,12 +48,6 @@ class DoctorController extends Controller
                         $key = null;
                       }
                   } 
-                   if($value === 'name' and $name) {
-                       if(preg_match("/{$name}/i", $key)) {
-                           return $key;
-                       } 
-                       return false;
-                     } 
                   return $key;
               });
         
@@ -74,7 +71,7 @@ class DoctorController extends Controller
       $mapped = array_values((array)$mapped);
       $mapped = array_filter($mapped);
       
-      $details = collect(array('page_number' => $items->currentPage(), 'max_pages' => $items->lastPage(), 'per_page' => $per_page, 'data' => $mapped));
+      $details = collect(array('page_number' => $items->currentPage(), 'max_pages' => $items->lastPage(), 'per_page' => $per_page, 'data' => $mapped, 'meta' => ['title' => 'ექიმები']));
      
       return response($details->toJson(JSON_PRETTY_PRINT), 200);
     }

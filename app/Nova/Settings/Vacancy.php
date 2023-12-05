@@ -8,7 +8,6 @@ use Laravel\Nova\Fields\Boolean;
 use Stepanenko3\NovaSettings\Types\AbstractType;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Panel;

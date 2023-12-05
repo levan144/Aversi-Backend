@@ -9,6 +9,8 @@ use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\Password;
 use Eminiarts\Tabs\Tab;
 use Eminiarts\Tabs\Tabs;
+use Murdercode\TinymceEditor\TinymceEditor;
+
 class Report extends AbstractType
 {
     public function fields(): array
@@ -27,13 +29,16 @@ class Report extends AbstractType
             
             new Tabs(__("Meta Tags"), [
                new Tab(__("Georgian"), [
-                   Trix::make(__('Content'), 'content_ka')->nullable(),
+                   TinymceEditor::make(__('Content'), 'content_ka')->nullable(),
+                //    Trix::make(__('Content'), 'content_ka')->nullable(),
                ]),
                new Tab(__("English"), [
-                   Trix::make(__('Content'), 'content_en')->nullable(),
+                   TinymceEditor::make(__('Content'), 'content_en')->nullable(),
+                //    Trix::make(__('Content'), 'content_en')->nullable(),
                ]),
                new Tab(__("Russian"), [
-                   Trix::make(__('Content'), 'content_ru')->nullable(),
+                   TinymceEditor::make(__('Content'), 'content_ru')->nullable(),
+                //    Trix::make(__('Content'), 'content_ru')->nullable(),
                ]),
            ]),
             new Panel(__('Receiver Email Parameters'), $this->emailFields()),

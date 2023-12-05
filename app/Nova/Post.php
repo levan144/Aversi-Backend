@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Storage;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use App\Nova\User;
 use Laravel\Nova\Panel;
+use Murdercode\TinymceEditor\TinymceEditor;
 class Post extends Resource
 {
     /**
@@ -68,8 +69,12 @@ class Post extends Resource
                     ->from('Title')
                     ->rules('required_lang:ka'),
 
-                Trix::make(__('Content'), 'content')
-                    ->rules('required_lang:ka'),
+		TinymceEditor::make(__('Content'), 'content')
+                ->rules(['required_lang:ka'])
+//                ->fullWidth()
+                ->help(__('The content of the article.')),
+//                Trix::make(__('Content'), 'content')
+  //                  ->rules('required_lang:ka'),
             ])->hideFromIndex(),
 
             

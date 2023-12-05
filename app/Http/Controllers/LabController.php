@@ -25,7 +25,7 @@ class LabController extends Controller
         $items = Search::add($searchType, ['title->' . $locale])
         ->beginWithWildcard()
         ->orderByRelevance()
-        ->paginate($perPage, $pageName = 'page', $page = $request->input('page') ?? 1)
+        ->paginate(2150, $pageName = 'page', $page = $request->input('page') ?? 1)
         ->search($search_term);
      
         
@@ -74,7 +74,7 @@ class LabController extends Controller
         $items = Search::add($searchType, ['title->' . $locale, 'services.title->' . $locale])
             ->beginWithWildcard()
             // ->orderByRelevance()
-            ->paginate($perPage, $pageName = 'page', $page = $request->input('page') ?? 1)
+            ->paginate(100, $pageName = 'page', $page = $request->input('page') ?? 1)
             ->search($search_term);
         
         $mapped = $items->map(function ($item) use ($locale) {

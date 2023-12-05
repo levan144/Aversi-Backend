@@ -9,7 +9,7 @@ use App\Models\AppointmentService;
 use App\Models\AppointmentServiceCategory;
 use App\Models\Doctor;
 use App\Models\Specialty;
-
+use Carbon\Carbon;
 class AppointmentController extends Controller
 {
     public function branches(Request $request) {
@@ -173,8 +173,25 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
         
             // Decode the API response
             $data = json_decode($res->getBody()->getContents(), true);
-        
-            return $data;
+	    // Get the current time
+	$now = Carbon::now('Asia/Tbilisi')->format('Y-m-d H:i:s');
+	// Filter out past entries
+	$filteredData = array_filter($data['data'], function ($entry) use ($now) {
+		
+		    $startHour = Carbon::parse($entry['startDate']);
+
+
+    // Assuming $now is a Carbon instance, if not, convert it as well
+    //$now = Carbon::parse($now);
+    // Compare the start date with the current time
+    return $startHour->gte($now);
+//$startHour = \Carbon\Carbon::createFromFormat('Y-m-d\TH:i:s',$cleanedStartDate, 'Asia/Tbilisi');
+		$startHour = date("Y-m-d H:i:s", strtotime($entry['startDate']));
+		
+		return strtotime($startHour) >= strtotime($now);
+	});
+	
+            return ['data' => array_values($filteredData)];
         } catch (\GuzzleHttp\Exception\ClientException $e) {
             $response = $e->getResponse();
             $responseBodyAsString = $response->getBody()->getContents();
@@ -190,7 +207,10 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
         // Define authentication credentials
             $username = '4511aac9-57ef-4d83-acea-54b8a1a44ae0';
             $password = 'b1f3fde2-2139-46a5-b60a-7dcb2256ecc4';
-        
+     		$phone = $request->input('phone');
+if ($phone[0] !== '+') {
+    $phone = '+' . $phone;
+}
             // Base64 encode the credentials
             $credentials = base64_encode($username . ':' . $password);
             // Create request payload
@@ -199,7 +219,7 @@ private function getBySpecialtyId($specialty_ids, $locale = 'ka'){
                     'pid' => $request->input('pid'),
                     'firstName' => $request->input('firstName'),
                     'lastname' => $request->input('lastname'),
-                    'phone' => $request->input('phone'),
+                    'phone' => $phone,
                     'dateOfBirth' => $request->input('dateOfBirth'),
                 ],
                 'add' => [[

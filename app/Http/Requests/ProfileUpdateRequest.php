@@ -19,11 +19,11 @@ class ProfileUpdateRequest extends FormRequest
     {
     $patient = Auth::guard('patient-api')->user();
         return [
-            'photo' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'photo' => 'sometimes|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'name' => 'required',
             'last_name' => 'required',
             'gender' => [ 'required', Rule::in(['male', 'female']) ],
-            'birthdate' => 'required|date_format:Y-m-d',
+            'birthdate' => 'required|date_format:Y-m-d\TH:i:s.u\Z',
             'citizenship' => [ 'required', Rule::in(['georgia', 'foreign']) ],
             'sid' => 'required|unique:patients,sid,' . $patient->id,
             'phone' => 'required',

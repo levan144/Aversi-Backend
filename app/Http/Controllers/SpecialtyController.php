@@ -8,7 +8,7 @@ use App\Models\Specialty;
 class SpecialtyController extends Controller
 {
     public function all(Request $request,$locale) {
-      $per_page = $request->input('per_page') ?? 15;
+      $per_page = $request->input('per_page') ?? 200;
       $relations = [];
       $items = Specialty::query();
       $items = $items->paginate($per_page);

@@ -59,8 +59,8 @@ class Promotion extends Resource
             NovaTabTranslatable::make([
                 Text::make(__('Title'), 'title')
                     ->rules('required_lang:ka'),
-                Trix::make(__('Content'), 'content'),
-                
+                // Trix::make(__('Content'), 'content'),
+                TinymceEditor::make(__('Content'), 'content'),
             ])->hideFromIndex(),
 
             Image::make(__('Cover'), 'cover_image')

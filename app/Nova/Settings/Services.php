@@ -9,7 +9,6 @@ use Stepanenko3\NovaSettings\Types\AbstractType;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
-use Laravel\Nova\Fields\Trix;
 use Kongulov\NovaTabTranslatable\NovaTabTranslatable;
 use Laravel\Nova\Panel;
 use Laravel\Nova\Fields\Textarea;

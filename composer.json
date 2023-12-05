@@ -13,7 +13,7 @@
         "bolechen/nova-activitylog": "^0.4.0",
         "dniccum/phone-number": "^2.0",
         "ebess/advanced-nova-media-library": "^4.0",
-        "eminiarts/nova-tabs": "^2.1",
+        "eminiarts/nova-tabs": "^2.2",
         "formfeed-uk/nova-breadcrumbs": "^1.0",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -21,17 +21,20 @@
         "kongulov/nova-tab-translatable": "^2.0",
         "laravel/framework": "^8.75",
         "laravel/helpers": "^1.5",
-        "laravel/nova": "~4.0",
+        "laravel/nova": "4.12.1",
         "laravel/passport": "^10.0",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
         "michielfb/laravel-nova-time-field": "^1.2",
+        "murdercode/nova4-tinymce-editor": "^1.2",
         "outl1ne/nova-menu-builder": "^7.0",
         "outl1ne/nova-multiselect-field": "^4.0",
         "outl1ne/nova-settings": "^5.0",
+        "outl1ne/nova-translatable": "^2.2",
         "protonemedia/laravel-cross-eloquent-search": "^3.0",
         "sadekd/nova-opening-hours-field": "^3.0",
+        "shuvroroy/nova-tabs": "^1.1",
         "spatie/cpu-load-health-check": "^1.0",
         "spatie/laravel-activitylog": "^4.5",
         "spatie/laravel-health": "^1.9",
@@ -41,13 +44,10 @@
         "spatie/laravel-translation-loader": "^2.7",
         "spatie/opening-hours": "^2.13",
         "staudenmeir/eloquent-json-relations": "^1.1",
-        "stepanenko3/nova-health": "^1.1",
-        "stepanenko3/nova-json": "^3.0",
+        "stepanenko3/nova-json": "^4.0",
         "stepanenko3/nova-settings": "^1.0",
-        "webklex/laravel-imap": "1.6.2",
         "webklex/php-imap": "2.2.5",
-        "whitecube/nova-flexible-content": "^1.0",
-        "aversi/language-switcher": "*"
+        "whitecube/nova-flexible-content": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -100,35 +100,6 @@
         "nova": {
             "type": "composer",
             "url": "https://nova.laravel.com"
-        },
-        "0": {
-            "type": "path",
-            "url": "./nova-components/Menu"
-        },
-        "1": {
-            "type": "path",
-            "url": "./nova-components/Menu"
-        },
-        "2": {
-            "type": "path",
-            "url": "./nova-components/LanguageSwitcher"
-        },
-        "3": {
-            "type": "path",
-            "url": "./nova-components/LanguageSwitcher"
-        },
-        "4": {
-            "type": "path",
-            "url": "./nova-components/LanguageSwitcher"
-        },
-        "5": {
-            "type": "path",
-            "url": "./nova-components/LanguageSwitcher"
-        },
-        "aversi": {
-            "type": "path",
-            "url": "./nova-components/LanguageSwitcher"
-        }
-        
+        }        
     }
 }

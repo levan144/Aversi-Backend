@@ -20,7 +20,7 @@ class VerificationController extends Controller
         if($user->phone_verified_at){
         return response()->json([
                 'success'   => false,
-                'message'   => 'Patient already verified',
+                'message'   => 'მომხმარებელი უკვე ვერიფიცირებულია',
             ]);
     }
         // Prepare API base64 auth
@@ -46,7 +46,7 @@ class VerificationController extends Controller
         return response()->json([
             'success'   => true,
             'sms_id' => $response['id'],
-            'message'   => 'The SMS verification code has been sent to the phone',
+            'message'   => 'SMS ვერიფიკაციის კოდი გამოგზავნილია მითითებულ ტელეფონის ნომერზე',
         ]);
     }
     
@@ -55,7 +55,7 @@ class VerificationController extends Controller
     if($user->phone_verified_at){
         return response()->json([
                 'success'   => false,
-                'message'   => 'Patient already verified',
+                'message'   => 'პაციენტი უკვე ვერიფიცირებულია',
             ]);
     }
     // Base64 auth
@@ -87,20 +87,20 @@ class VerificationController extends Controller
 
             return response()->json([
                 'success'   => true,
-                'message'   => 'Patient verified successfully',
+                'message'   => 'მომხმარებელი ვერიფიცირებულია',
             ]);
         }else{
             // ErrorCode is 1 or more, do not verify user
             return response()->json([
                 'success'   => false,
-                'message'   => 'Verification failed',
+                'message'   => 'ვერიფიკაცია წარუმატებელია',
             ]);
         }
     }else{
         // The request failed
         throw new HttpResponseException(response()->json([
             'success'   => false,
-            'message'   => 'Verification error',
+            'message'   => 'ვერიფიკაციის პრობლემა',
         ], $response->status()));
     }
 }
